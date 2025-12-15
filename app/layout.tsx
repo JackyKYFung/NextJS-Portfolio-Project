@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google';
 import "./globals.css";
+import { Header } from "@/app/components/header";
+import { Footer } from "@/app/components/footer";
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,10 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="mx-auto bg-background min-h-screen">
-          Header
+        <div className="mx-auto bg-background min-h-screen content-overlay">
+          <Header />
         {children}
-          Footer
+          <Footer />
         </div>
       </body>
     </html>

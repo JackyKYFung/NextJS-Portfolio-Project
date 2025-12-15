@@ -4,22 +4,22 @@ export function Header() {
     return (
         <header className="flex justify-between mb-[66px] content-center">
             <div className="font-bold text-2xl">
-                <link href={'/'}>jFunki</link>
+                <Link href={'/'}>jFunki</Link>
             </div>
 
             <nav>
-                <ul>
+                <ul className="flex gap-5">
                     <li>
                         <Link href={'/'}>Home</Link>
                     </li>
                     <li>
-                        <Link href={'/'}>About</Link>
+                        <Link href={'/about'}>About</Link>
                     </li>
                     <li>
-                        <Link href={'/'}>Projects</Link>
+                        <Link href={'/projects'}>Projects</Link>
                     </li>
                     <li>
-                        <Link href={'/'}>Contact</Link>
+                        <Link href={'/contact'}>Contact</Link>
                     </li>
                 </ul>
             </nav>

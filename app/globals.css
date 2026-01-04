@@ -144,3 +144,25 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.skills span {
+  opacity: 0.6;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+/* Dim all skills when hovering a category */
+.skills-wrapper:has(.skill-category:hover) .skills span {
+  opacity: 0.2;
+}
+
+/* Re-highlight only matching skills */
+.skills-wrapper:has(.skill-category[data-cat="wordpress"]:hover) .skills span[data-cat="wordpress"],
+.skills-wrapper:has(.skill-category[data-cat="payments"]:hover) .skills span[data-cat="payments"],
+.skills-wrapper:has(.skill-category[data-cat="frontend"]:hover) .skills span[data-cat="frontend"],
+.skills-wrapper:has(.skill-category[data-cat="performance"]:hover) .skills span[data-cat="performance"],
+.skills-wrapper:has(.skill-category[data-cat="hosting"]:hover) .skills span[data-cat="hosting"],
+.skills-wrapper:has(.skill-category[data-cat="design"]:hover) .skills span[data-cat="design"] {
+  opacity: 1;
+  color: #000;
+  font-weight: 600;
+}

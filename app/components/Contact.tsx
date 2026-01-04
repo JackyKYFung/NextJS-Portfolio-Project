@@ -1,4 +1,4 @@
-export default function Contact() {
+export function Contact() {
     return (
         <section>
             Contact Me!

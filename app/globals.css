@@ -161,8 +161,48 @@ body {
 .skills-wrapper:has(.skill-category[data-cat="frontend"]:hover) .skills span[data-cat="frontend"],
 .skills-wrapper:has(.skill-category[data-cat="performance"]:hover) .skills span[data-cat="performance"],
 .skills-wrapper:has(.skill-category[data-cat="hosting"]:hover) .skills span[data-cat="hosting"],
-.skills-wrapper:has(.skill-category[data-cat="design"]:hover) .skills span[data-cat="design"] {
+.skills-wrapper:has(.skill-category[data-cat="design"]:hover) .skills span[data-cat="design"] 
+{
   opacity: 1;
   color: #000;
   font-weight: 600;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+.experience-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 1.5s ease, opacity 0.3s ease, content-visibility 1.5s ease;
+  transition-behavior: allow-discrete;
+}
+
+details[open] .experience-details {
+  max-height: 1000px;  /* MUST be taller than your content */
+  opacity: 1;
+}
+
+/* Hide native disclosure arrow */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary {
+  list-style: none;
+}
+
+/* Summary layout */
+.experience-title {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+/* Arrow animation */
+.arrow {
+  transition: transform 0.3s ease;
 }

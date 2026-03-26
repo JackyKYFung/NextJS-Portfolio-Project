@@ -7,7 +7,7 @@ import { About } from "@/app/components/About";
 import { Contact } from "@/app/components/Contact";
 import { Skills } from "@/app/components/Skills";
 import { Experience } from "@/app/components/Experience";
-
+import { Projects } from "@/app/components/Projects";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout() {
+  
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
@@ -25,6 +26,8 @@ export default function RootLayout() {
           <Header />
           <About />
           <Skills />
+          <Projects categoryId={9} />
+
           <Experience />
           <Contact />
           <Footer />

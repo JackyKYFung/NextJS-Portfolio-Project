@@ -1,15 +1,16 @@
-//import { useState, useEffect } from 'react';
+import { getData } from "@/lib/wp";
 
 export async function Projects({ categoryId } : { categoryId: number }) {
+
+    const projects = await getData("project", "orderby=date&order=asc");
 
     // fetch runs on server before page loads
 
 //  const url = `https://jfunki.com/wp-json/wp/v2/posts?categories=${categoryId}&_embed`;    
-    const res = await fetch(`https://jfunki.com/wp-json/wp/v2/project?_embed&orderby=date&order=asc`, 
-        { next: { revalidate: 3600 }
-    });
+//  const res = await fetch(`https://jfunki.com/wp-json/wp/v2/project?_embed&orderby=date&order=asc`, 
+//        { next: { revalidate: 3600 }
 
-    const projects = await res.json();
+//    const projects = await res.json();
 
     console.log("Current Projects Data:", projects);
 
@@ -20,12 +21,12 @@ export async function Projects({ categoryId } : { categoryId: number }) {
                 <article key={project.id} className="project-card">
                     <h1>{project.title.rendered}</h1>
                     {project._embedded?.['wp:term']?.[1]?.map((tag: any) => (
-                    <span key={tag.id} className="tag-pill" 
+                    <span key={tag.id} className={`tag-pill tag-${tag.slug}`} 
                         style={{
                             fontWeight: "600",
                             padding: "5px 5px",
                             border: "1px solid",
-                            marginRight: "5px"
+                            marginRight: "5px",
                         }}>
                         {tag.name} 
                     </span> 

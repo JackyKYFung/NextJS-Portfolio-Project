@@ -1,6 +1,6 @@
 import { getData } from "@/lib/wp";
 
-export async function Projects({ categoryId } : { categoryId: number }) {
+export async function Projects() {
 
     const projects = await getData("project", "orderby=date&order=asc");
 

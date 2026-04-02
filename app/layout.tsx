@@ -26,7 +26,7 @@ export default function RootLayout() {
           <Header />
           <About />
           <Skills />
-          <Projects categoryId={9} />
+          <Projects />
 
           <Experience />
           <Contact />

@@ -6,7 +6,7 @@ export default async function ExperiencePage() {
 
     return (
         <section>
-            <h1 className="experiencePageComp">Experience</h1>
+            <h1 className="animate-fade-in">Experience</h1>
             {/* passes data to Experience component*/}
             <Experience experiences={data} />
         </section>

@@ -1,8 +1,9 @@
 import { getData } from "@/lib/wp";
 
-export async function Projects() {
+export function Projects({ projects }: { projects: any[] }) {
+//export function Experience({ experiences }: { experiences: any[] })
 
-    const projects = await getData("project", "orderby=date&order=asc");
+    //const projects = await getData("project", "orderby=date&order=asc");
 
     // fetch runs on server before page loads
 

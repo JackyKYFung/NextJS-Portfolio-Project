@@ -7,7 +7,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
     return (
 
      
-    <section className="text-left mt-10">
+    <section className="text-left mt-10 animate-fade-in">
         {Array.isArray(experiences) && experiences.map((experience: any) => {
 
                 // Get job details string from ACF 

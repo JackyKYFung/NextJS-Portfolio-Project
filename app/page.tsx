@@ -2,7 +2,7 @@
 
 export default function Home() {
   return (
-    <section>
+    <section className="animate-fade-in">
 
     home page
 

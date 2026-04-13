@@ -1,11 +1,8 @@
+"use client";
+import { useState } from "react";
 
-import { getData } from "@/lib/wp";
-
-export async function Experience() {
-
-    const experiences = await getData("experience", "orderby=date&order=desc");
-
-    //console.log(experiences);
+// data passed over from experience/page.tsx is added into the experiences array
+export function Experience({ experiences }: { experiences: any[] }) {
 
     return (
 

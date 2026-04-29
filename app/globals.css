@@ -88,12 +88,12 @@
 }
 
 body {
-  background-image: url("/mount-fuji.webp");
-  background-size: cover;
+  /* background-image: url("/mount-fuji.webp"); */
+  /* background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: bottom; 
-  padding: 15px;
+  background-position: bottom; */
+  padding: 5%; 
 }
 
 .content-overlay {

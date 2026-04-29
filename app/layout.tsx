@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="mx-auto bg-background min-h-screen content-overlay max-w-xl">
+        <div>
           <Header />
             <main>{children}</main>
           <Footer />

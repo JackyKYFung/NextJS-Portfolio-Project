@@ -1,26 +1,13 @@
 import { getData } from "@/lib/wp";
 
 export function Projects({ projects }: { projects: any[] }) {
-//export function Experience({ experiences }: { experiences: any[] })
-
-    //const projects = await getData("project", "orderby=date&order=asc");
-
-    // fetch runs on server before page loads
-
-//  const url = `https://jfunki.com/wp-json/wp/v2/posts?categories=${categoryId}&_embed`;    
-//  const res = await fetch(`https://jfunki.com/wp-json/wp/v2/project?_embed&orderby=date&order=asc`, 
-//        { next: { revalidate: 3600 }
-
-//    const projects = await res.json();
 
     console.log("Current Projects Data:", projects);
 
     return (
         <div className="projects-section">
-            <p>Projects section here</p>
             {Array.isArray(projects) && projects.map((project: any) => (
                 <article key={project.id} className="project-card">
-                    <h1>{project.title.rendered}</h1>
                     {project._embedded?.['wp:term']?.[1]?.map((tag: any) => (
                     <span key={tag.id} className={`tag-pill tag-${tag.slug}`} 
                         style={{
@@ -33,33 +20,22 @@ export function Projects({ projects }: { projects: any[] }) {
                     </span> 
                 ))}
 
-                    <div className="case-study-details">
-                        <p>{project.acf?.problem}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-start">
+                        <div className="md:col-span-3 group relative overflow-hidden rounded-xl lg:hover:bg-gray-900/90 h-60">
+                            <img 
+                                src={project.acf?.project_thumbnail?.url} 
+                                className="w-full object-cover transition-all duration-300 lg:group-hover:blur-sm lg:group-hover:scale-105"
+                            />
 
-                        <p>{project.acf?.solution}</p>
-
-                        <p>{project.acf?.results}</p>
-
-                        <p>project thumbnail</p>
-
-                        <img 
-                        src={project.acf?.project_thumbnail?.url} 
-                        alt={project.acf?.project_thumbnail?.alt || project.title.rendered} 
-                        />
-
-                        <img 
-                        src={project.acf?.preview_crop?.url} 
-                        alt="Preview Crop"
-                        />
-
-                        <img 
-                        src={project.acf?.full_screenshot?.url} 
-                        alt="Full Screenshot"
-                        />
-
-                        <p>{project.acf?.snippet_text}</p>
-
+                            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/0 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:group-hover:bg-gray-900/60 lg:group-hover:backdrop-blur-md">
+                                <h1 className="text-lg font-bold text-white px-4 text-center">{project.title.rendered}</h1>
+                            </div>
+                        </div>
+                        <div className="md:col-span-1">
+                            <p>stack tags here</p>
+                        </div>
                     </div>
+
 
                 </article>
             ))}

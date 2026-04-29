@@ -39,6 +39,26 @@ export function Projects({ projects }: { projects: any[] }) {
                         <p>{project.acf?.solution}</p>
 
                         <p>{project.acf?.results}</p>
+
+                        <p>project thumbnail</p>
+
+                        <img 
+                        src={project.acf?.project_thumbnail?.url} 
+                        alt={project.acf?.project_thumbnail?.alt || project.title.rendered} 
+                        />
+
+                        <img 
+                        src={project.acf?.preview_crop?.url} 
+                        alt="Preview Crop"
+                        />
+
+                        <img 
+                        src={project.acf?.full_screenshot?.url} 
+                        alt="Full Screenshot"
+                        />
+
+                        <p>{project.acf?.snippet_text}</p>
+
                     </div>
 
                 </article>

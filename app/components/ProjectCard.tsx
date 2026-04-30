@@ -1,4 +1,4 @@
-import { getData } from "@/lib/wp";
+import { getTagTheme } from "@/lib/tags";
 
 export function ProjectCard({ project }: { project: any }) {
 
@@ -23,16 +23,24 @@ export function ProjectCard({ project }: { project: any }) {
                         </h1>
                     </div>
                 </div>
-                <div className="md:col-span-1">
+                <div className="md:col-span-1 flex flex-wrap gap-2 w-full">
                     {techStack.length > 0 ? (
-                        techStack.map((tag: any) => (
-                            <span 
-                                key={tag.id} 
-                                className="bg-gray-800 text-gray-200 text-[10px] px-2 py-1 rounded border border-gray-700"
-                            >
-                                {tag.name}
-                            </span>
-                        ))
+                        techStack.map((tag: any) => {
+
+                            const theme = getTagTheme(tag.name);
+
+                            return (
+                                <span 
+                                    key={tag.id} 
+                                    className={`relative px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] 
+                                                text-black/80 rounded-full shadow-lg 
+                                                bg-gradient-to-br backdrop-blur-md transition-all duration-300
+                                                 ${theme}`}
+                                >
+                                    {tag.name}
+                                </span>
+                            )
+                        })
                         ) : backUpIds.length > 0 ? (
                             // If names are missing, show the IDs we saw in your console log
                             backUpIds.map((id: number) => (

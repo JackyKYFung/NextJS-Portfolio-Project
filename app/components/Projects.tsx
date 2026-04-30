@@ -1,4 +1,3 @@
-import { getData } from "@/lib/wp";
 import { ProjectCard } from "./ProjectCard";
 
 export function Projects({ projects }: { projects: any[] }) {

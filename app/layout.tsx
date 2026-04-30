@@ -26,12 +26,14 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <div>
+      <body className={`${inter.className} antialiased bg-[#111] text-white relative`}>
+        <div className="noise" aria-hidden="true" />
+        <div className="relative p-15 z-10">  
           <Header />
-            <main>{children}</main>
+            <main className="flex-grow">{children}</main>
           <Footer />
         </div>
+        
       </body>
     </html>
   );

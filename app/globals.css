@@ -93,7 +93,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: bottom; */
-  padding: 5%; 
+  /*padding: 5%; */
 }
 
 .content-overlay {
@@ -223,4 +223,43 @@ summary {
 /* This creates the 'animate-fade-in' utility automatically */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Grainy Background animation for website body */
+
+/* 1. Define the flicker animation */
+.noise {
+    position: fixed;
+    z-index: 9999;
+    /* Massive size to allow for large translations without showing edges */
+    top: -300%;
+    left: -150%;
+    height: 600%;
+    width: 600%;
+    
+    /* Her exact animation settings */
+    animation: vibration 7s steps(10) infinite;
+    
+    /* Using the SVG version but scaled to 200px like her PNG */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 250px;
+    background-repeat: repeat;
+    
+    /* Her opacity is .25, but start at .1 or .15 if you find it too heavy 
+       on a very dark background like yours */
+    opacity: 0.17; 
+    pointer-events: none;
+}
+
+@keyframes vibration {
+  0%, 100% { transform:translate(0, 0) }
+  10% { transform:translate(-5%, -10%) }
+  20% { transform:translate(-15%, 5%) }
+  30% { transform:translate(7%, -25%) }
+  40% { transform:translate(-5%, 25%) }
+  50% { transform:translate(-15%, 10%) }
+  60% { transform:translate(15%, 0%) }
+  70% { transform:translate(0%, 15%) }
+  80% { transform:translate(3%, 35%) }
+  90% { transform:translate(-10%, 10%) }
 }

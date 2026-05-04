@@ -164,7 +164,7 @@ body {
 .skills-wrapper:has(.skill-category[data-cat="design"]:hover) .skills span[data-cat="design"] 
 {
   opacity: 1;
-  color: #000;
+  color: #fff;
   font-weight: 600;
 }
 

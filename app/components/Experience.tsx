@@ -31,11 +31,13 @@ export function Experience({ experiences }: { experiences: any[] }) {
                 // The accordion heading
                 <div 
                     key={experience.id} 
-                    className="
-                        experience-tab border border-black/10 rounded-xl overflow-hidden transition-all duration-300 mb-5" 
-                    >
+                    className={`experience-tab mb-5 overflow-hidden transition-all duration-300 rounded-xl hover:bg-zinc-500/10 border-1             
+                        ${isOpen 
+                            ? "border-white shadow-md" : "border-black/0"                     
+                        }
+                    `}>
                     <div 
-                        className="experience-title p-4 cursor-pointer w-full text-left"
+                        className="experience-title p-5 cursor-pointer w-full text-left"
                         onClick={() => toggleAccordion(experience.id)}
                         >
 
@@ -60,7 +62,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
                         className={`grid transition-all duration-300 ease-in-out ${ isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0" } `}
                         >
                         <div className="overflow-hidden">        
-                            <ul className="p-4 space-y-2"
+                            <ul className="p-5 space-y-2"
                                 style={{
                                     listStyle: "disc",
                                     paddingLeft: "35px"

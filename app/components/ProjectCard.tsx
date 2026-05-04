@@ -1,13 +1,25 @@
+"use client";
+
 import { getTagTheme } from "@/lib/tags";
 import Link from 'next/link';
+import { motion } from "framer-motion";
 
 export function ProjectCard({ project }: { project: any }) {
 
     const techStack = project._embedded?.['wp:term']
-        ?.flat() // Combines all term arrays (categories, tags, tech_stacks) into one
-        ?.filter((term: any) => term.taxonomy === 'tech_stack') || [];
+        ?.flat()
+        ?.filter((term: any) => {
+            // 1. Only allow terms that belong to the 'tech_stack' taxonomy
+            const isActuallyTech = term.taxonomy === 'tech_stack';
+
+            // 2. Explicitly block the "All Projects" name just in case
+            const isNotAllProjects = term.name?.toLowerCase().trim() !== 'all projects';
+
+            return isActuallyTech && isNotAllProjects;
+        }) || [];
 
     const backUpIds = project.tech_stack || [];
+
 
     return (
         <Link href={`/projects/${project.slug}`} className="block h-full group">
@@ -19,7 +31,7 @@ export function ProjectCard({ project }: { project: any }) {
                             className="w-full object-cover transition-all duration-300 lg:group-hover:blur-sm lg:group-hover:scale-105"
                         />
 
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-900/0 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:group-hover:bg-gray-900/60 lg:group-hover:backdrop-blur-md">
+                        <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-gray-900/0 group-hover:bg-gray-900/70 backdrop-blur-sm">
                             <h1 className="text-lg font-bold text-white px-4 text-center">
                                 {project.title.rendered}
                             </h1>
@@ -27,20 +39,33 @@ export function ProjectCard({ project }: { project: any }) {
                     </div>
                     <div className="md:col-span-1 flex flex-wrap gap-2 w-full">
                         {techStack.length > 0 ? (
-                            techStack.map((tag: any) => {
+                            techStack.map((tag: any, index: number) => {
 
                                 const theme = getTagTheme(tag.name);
+                                console.log("Filtered Tech Stack:", tag);
 
                                 return (
-                                    <span 
-                                        key={tag.id} 
-                                        className={`relative px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] 
-                                                    text-black/80 rounded-full shadow-lg 
-                                                    bg-gradient-to-br backdrop-blur-md transition-all duration-300
-                                                    ${theme}`}
-                                    >
-                                        {tag.name}
-                                    </span>
+                                    <motion.span 
+                                    key={tag.id}
+                                    // Breathing animation
+                                    animate={{
+                                        y: [0, -2, 0], // Subtle lift (less than the big boxes)
+                                    }}
+                                    transition={{
+                                        duration: 4 + (index % 4), // Randomized duration
+                                        repeat: Infinity,
+                                        repeatType: "mirror",
+                                        ease: "easeInOut",
+                                        delay: index * 0.2, // Staggered start times
+                                    }}
+                                    className={`
+                                        relative px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] 
+                                        text-black/80 rounded-full shadow-lg inline-block duration-300
+                                        bg-gradient-to-br backdrop-blur-md
+                                        ${theme}`}
+                                        >
+                                            {tag.name}
+                                    </motion.span>
                                 )
                             })
                             ) : backUpIds.length > 0 ? (

@@ -3,11 +3,7 @@ import { Inter } from 'next/font/google';
 import "@/app/globals.css";
 import { Header } from "@/app/components/header";
 import { Footer } from "@/app/components/footer";
-import { About } from "@/app/components/About";
-import { Contact } from "@/app/components/Contact";
-import { Skills } from "@/app/components/Skills";
-import { Experience } from "@/app/components/Experience";
-import { Projects } from "@/app/components/Projects";
+
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,12 +19,16 @@ export default function RootLayout({
 }: { 
   children: React.ReactNode;
 }) {
-  
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased bg-[#111] text-white relative`}>
-        <div className="noise" aria-hidden="true" />
-        <div className="relative p-15 z-10">  
+      <body className={`${inter.className} antialiased bg-[#111] text-white p-15`}>
+        
+        <div 
+          className="noise fixed inset-0 pointer-events-none z-[9999]" 
+          aria-hidden="true" 
+        />
+
+        <div className="relative z-10">  
           <Header />
             <main className="flex-grow">{children}</main>
           <Footer />

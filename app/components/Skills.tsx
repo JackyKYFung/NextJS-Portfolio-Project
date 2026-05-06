@@ -1,75 +1,109 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+"use client";
 
-export function Skills() {
+import { useMemo, useState, useEffect } from "react";
+
+// Define the type of ACF Data so Typescript knows what fields to expect
+interface ACFSkillsData {
+    wordpress?: string;
+    payments?: string;
+    frontend?: string;
+    performance?: string;
+    hosting?: string;
+    design?: string;
+    [key: string]: string | undefined;
+}
+
+interface SkillsProps {
+    acfData: ACFSkillsData;
+}
+
+export function Skills({ acfData }: SkillsProps) {
+
+    const [mounted, setMounted] = useState(false);
+
+    //console.log("=== RAW ACF DATA RECEIVED BY SKILLS COMPONENT ===", acfData);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const randomizedSkills = useMemo(() => {
+        if (!acfData) return [];
+
+        const categoryMap = [
+            { field: "wordpress", cat: "wordpress" },
+            { field: "payment", cat: "payments" },
+            { field: "frontend", cat: "frontend" },
+            { field: "performance", cat: "performance" },
+            { field: "hosting", cat: "hosting" },
+            { field: "design", cat: "design" },
+        ];
+
+        let allSkills: Array<{ name: string; category: string }> = [];
+
+        categoryMap.forEach(({ field, cat }) => {
+            const rawString = acfData[field] || "";
+
+            if (rawString) {
+                const skillsArray = rawString
+                    .split("|") // <-- splitting the skills term by | in the array
+                    .map((item: string) => item.trim())
+                    .filter((item: string) => item !== "");
+
+                    skillsArray.forEach((skiillName: string) => {
+                        allSkills.push ({
+                            name: skiillName,
+                            category: cat
+                        });
+                    });
+            }
+        });
+
+    return allSkills.sort(() => Math.random() - 0.5);
+}, [acfData]);
+
+if (!mounted) {
+return (
+    <section className="opacity-0">
+        <div className="tech-section mt-[35px] font-bold">Technical Skills</div>
+    </section>
+    );
+}
+
     return (
-        <section>
-
+<section className="animate-fade-in">
             <div className="tech-section mt-[35px] font-bold">
                 Technical Skills
             </div>
            
-                <div className="skills-wrapper grid grid-cols-2 grid-cols-[150px_1fr]">
-                    <nav className="skill-categories flex flex-col items-end pr-[20]">
-                        <button className="skill-category font-bold w-fit" data-cat="wordpress">Wordpress</button>
-                        <button className="skill-category font-bold w-fit" data-cat="payments">Payments</button>
-                        <button className="skill-category font-bold w-fit" data-cat="frontend">Frontend</button>
-                        <button className="skill-category font-bold w-fit" data-cat="performance">Performance</button>
-                        <button className="skill-category font-bold w-fit" data-cat="hosting">Hosting</button>
-                        <button className="skill-category font-bold w-fit" data-cat="design">Design</button>
-                    </nav>
+            <div className="skills-wrapper grid grid-cols-[150px_1fr] mt-5">
+               {/* Sidebar */}
+                <nav className="skill-categories flex flex-col items-end pr-5 border-r border-black/10">
+                    {["wordpress", "payments", "frontend", "performance", "hosting", "design"].map((cat) => (
+                        <button 
+                            key={cat}
+                            className="skill-category font-bold w-fit capitalize text-sm mb-2 opacity-80 hover:opacity-100 transition-opacity" 
+                            data-cat={cat}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </nav>
 
-                    <div className="skills max-w-83">
-                        <span data-cat="wordpress">WooCommerce </span>
-                        <span data-cat="wordpress">Elementor </span>
-                        <span data-cat="wordpress">WPBakery </span>
-                        <span data-cat="wordpress">ACF Pro </span>
-                        <span data-cat="wordpress">Custom
-                    Plugin/Theme </span>
-
-                        <span data-cat="payments">Stripe </span>
-                        <span data-cat="payments">Moneris </span>
-                        <span data-cat="payments">Converge </span>
-                        <span data-cat="payments">PayPal </span>
-                        <span data-cat="payments">REST API </span>
-                        <span data-cat="payments">Webhooks </span>
-
-                        <span data-cat="frontend">HTML5 </span>
-                        <span data-cat="frontend">CSS3 </span>
-                        <span data-cat="frontend">JavaScript </span>
-                        <span data-cat="frontend">PHP </span>
-                        <span data-cat="frontend">jQuery </span>
-
-                        <span data-cat="performance">PageSpeed </span>
-                        <span data-cat="performance">Yoast </span>
-                        <span data-cat="performance">GTM </span>
-                        <span data-cat="performance">Google Analytics </span>
-
-                        <span data-cat="hosting">Cloudways </span>
-                        <span data-cat="hosting">Flywheel </span>
-                        <span data-cat="hosting">Git </span>
-                        <span data-cat="hosting">DNS </span>
-
-                        <span data-cat="design">Figma </span>
-                        <span data-cat="design">XD </span>
-                        <span data-cat="design">Photoshop </span>
-                        <span data-cat="design">Illustrator</span>
-                    </div>
+                {/* skills showcase section */}
+                <div className="skills pl-5 max-w-83 flex flex-wrap">
+                    {randomizedSkills.map((item, index) => (
+                        <span 
+                            key={`${item.name}-${index}`}
+                            data-cat={item.category}
+                            className="inline-block px-2 py-1 text-sm rounded cursor-default transition-all duration-300 "
+                        >
+                            {item.name}
+                        </span>
+                    ))}
                 </div>
-          
-
-
-
-
-            
-
-        
+            </div>
         </section>
-
 
     )
 }

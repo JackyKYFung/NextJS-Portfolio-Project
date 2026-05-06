@@ -16,3 +16,10 @@ export async function getProjectBySlug(slug: string) {
     // Return the first item in the array, or null if it's empty
     return data.length > 0 ? data[0] : null;
 }
+
+// 3. A specialized function for pages
+export async function getPageBySlug(slug: string) {
+    const data = await getData("pages", `slug=${slug}`);
+    // Return the first item in the array, or null if empty
+    return data.length > 0 ? data[0] : null;
+}

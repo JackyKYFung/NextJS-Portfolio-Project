@@ -1,15 +1,28 @@
-import { Skills } from "./Skills"
+"use client";
 
-export function About() {
+import { Skills } from "@/app/components/Skills";
+
+interface AboutProps {
+    pageData: any;
+}
+
+export function About({ pageData }: AboutProps) {
+
+    const acf = pageData?.acf;
+
     return (
-        <section className="text-left mt-10">
-            <p>WordPress developer with 6+ years of agency experience building, optimizing, and maintaining custom WordPress/WooCommerce sites. Specialize in pixel-perfect Figma-to-WordPress conversions, payment gateway integrations, performance optimization, and long-term client retainers.</p>
+        <div className="about-layout-container">
+            {/* Render your bio description from WordPress standard editor */}
+            {pageData?.content?.rendered && (
+                <div 
+                    className="bio-content prose max-w-none"
+                    dangerouslySetInnerHTML={{ __html: pageData.content.rendered }}
+                />
+            )}
 
-        <h1>my skills</h1>
-
-        <Skills />
-
-        </section>
+            {/* Pass acfData safely to Skills */}
+            <Skills acfData={acf || {}} />
+        </div>
         
     )
 }

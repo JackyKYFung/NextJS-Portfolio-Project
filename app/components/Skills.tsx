@@ -65,20 +65,22 @@ export function Skills({ acfData }: SkillsProps) {
 if (!mounted) {
 return (
     <section className="opacity-0">
-        <div className="tech-section mt-[35px] font-bold">Technical Skills</div>
+        <div className="tech-section font-bold">Technical Skills</div>
     </section>
     );
 }
 
     return (
 <section className="animate-fade-in">
-            <div className="tech-section mt-[35px] font-bold">
-                Technical Skills
-            </div>
-           
-            <div className="skills-wrapper grid grid-cols-[150px_1fr] mt-5">
+
+
+            <div className="skills-wrapper grid grid-cols-[110px_1fr] max-w-fit mx-auto lg:max-w-none mt-5 lg:mt-0 py-5 border rounded-xl ">
                {/* Sidebar */}
-                <nav className="skill-categories flex flex-col items-end pr-5 border-r border-black/10">
+                <h1 className="mb-5 items-end text-right font-bold">My Skills</h1>
+                <div className="self-center pl-5 mb-5">
+                    <p className="text-center text-xs opacity-80">(The skills are sort randomly on load!)</p>
+                </div>
+                <nav className="skill-categories flex flex-col items-end border-r border-black/10 ">
                     {["wordpress", "payments", "frontend", "performance", "hosting", "design"].map((cat) => (
                         <button 
                             key={cat}
@@ -91,7 +93,7 @@ return (
                 </nav>
 
                 {/* skills showcase section */}
-                <div className="skills pl-5 max-w-83 flex flex-wrap">
+                <div className="skills pl-5 max-w-none lg:max-w-83  flex flex-wrap">
                     {randomizedSkills.map((item, index) => (
                         <span 
                             key={`${item.name}-${index}`}

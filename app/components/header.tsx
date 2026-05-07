@@ -19,7 +19,7 @@ export function Header() {
                        
                         <Link 
                             href='/'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                            className={`relative transition-all duration-200 flex items-center text-sm group pb-1 ${pathname === "/" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
                             >
                                 <span>HO</span>
                                 <Home className="w-[1.0em] h-[1.0em] stroke-[2.5] text-current translate-y-[0px] px-[1px]" />
@@ -36,7 +36,7 @@ export function Header() {
                     <li>
                         <Link 
                             href='/about'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/about" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                            className={`relative transition-all duration-200 flex items-center text-sm group pb-1 ${pathname === "/about" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
                             >
                                 <span>AB</span>
                                 <FingerprintPattern className="w-[0.9em] h-[0.9em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
@@ -53,7 +53,7 @@ export function Header() {
                     <li>
                         <Link 
                             href='/projects'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/projects" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                            className={`relative transition-all duration-200 flex items-center text-sm group pb-1 ${pathname === "/projects" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
                             >
                                 <span>PR</span>
                                 <Atom className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
@@ -70,7 +70,7 @@ export function Header() {
                     <li>
                         <Link 
                             href='/experience'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/experience" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                            className={`relative transition-all duration-200 flex items-center text-sm group pb-1 ${pathname === "/experience" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
                             >
                                 <Blocks className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
                                 <span>XPERIENCE</span>
@@ -86,7 +86,7 @@ export function Header() {
                     <li>
                         <Link 
                             href='/contact'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/contact" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                            className={`relative transition-all duration-200 flex items-center text-sm group pb-1 ${pathname === "/contact" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
                             >
                                 <span>C</span>
                                 <HeartHandshake className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />

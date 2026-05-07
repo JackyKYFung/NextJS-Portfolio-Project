@@ -74,7 +74,7 @@ return (
 <section className="animate-fade-in">
 
 
-            <div className="skills-wrapper grid grid-cols-[110px_1fr] max-w-fit mx-auto lg:max-w-none mt-5 lg:mt-0 py-5 border rounded-xl ">
+            <div className="skills-wrapper grid grid-cols-[110px_1fr] max-w-fit mx-auto lg:max-w-none mt-7 lg:mt-0 py-5 border rounded-xl ">
                {/* Sidebar */}
                 <h1 className="mb-5 items-end text-right font-bold">My Skills</h1>
                 <div className="self-center pl-5 mb-5">

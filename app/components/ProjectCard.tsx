@@ -42,7 +42,7 @@ export function ProjectCard({ project }: { project: any }) {
                             techStack.map((tag: any, index: number) => {
 
                                 const theme = getTagTheme(tag.name);
-                                console.log("Filtered Tech Stack:", tag);
+                                //console.log("Filtered Tech Stack:", tag);
 
                                 return (
                                     <motion.span 

@@ -78,7 +78,7 @@ return (
                {/* Sidebar */}
                 <h1 className="mb-5 items-end text-right font-bold">My Skills</h1>
                 <div className="self-center pl-5 mb-5">
-                    <p className="text-center text-xs opacity-80">(The skills are sort randomly on load!)</p>
+                    <p className="text-center text-xs opacity-80 italic">(The skills sort randomly on load!)</p>
                 </div>
                 <nav className="skill-categories flex flex-col items-end border-r border-black/10 ">
                     {["wordpress", "payments", "frontend", "performance", "hosting", "design"].map((cat) => (
@@ -98,7 +98,7 @@ return (
                         <span 
                             key={`${item.name}-${index}`}
                             data-cat={item.category}
-                            className="inline-block px-2 py-1 text-sm rounded cursor-default transition-all duration-300 "
+                            className="inline-block px-2 py-1 text-sm rounded cursor-default transition-all duration-300 font-bold"
                         >
                             {item.name}
                         </span>

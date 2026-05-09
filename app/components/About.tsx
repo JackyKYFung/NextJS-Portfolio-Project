@@ -38,7 +38,7 @@ return (
             </div>
 
             {/* SECOND ROW: Photo Gallery (Full Width) */}
-            <div className="w-full pt-10">
+            <div className="w-full">
                 <h2 className="text-2xl font-bold mb-6">Life Beyond the Code</h2>
                 <PhotoGallery wpData={updates}/>
             </div>

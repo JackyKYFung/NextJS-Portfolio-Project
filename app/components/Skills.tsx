@@ -74,7 +74,7 @@ return (
 <section className="animate-fade-in">
 
 
-            <div className="skills-wrapper grid grid-cols-[110px_1fr] max-w-fit mx-auto lg:max-w-none mt-7 lg:mt-0 py-5 border rounded-xl ">
+            <div className="skills-wrapper grid grid-cols-[100px_1fr] max-w-fit mx-auto lg:max-w-none  py-5 px-2 border rounded-xl ">
                {/* Sidebar */}
                 <h1 className="mb-5 items-end text-right font-bold">My Skills</h1>
                 <div className="self-center pl-5 mb-5">
@@ -93,12 +93,12 @@ return (
                 </nav>
 
                 {/* skills showcase section */}
-                <div className="skills pl-5 max-w-none lg:max-w-83  flex flex-wrap">
+                <div className="skills pl-3 max-w-none lg:max-w-83  flex flex-wrap">
                     {randomizedSkills.map((item, index) => (
                         <span 
                             key={`${item.name}-${index}`}
                             data-cat={item.category}
-                            className="inline-block px-2 py-1 text-sm rounded cursor-default transition-all duration-300 font-bold"
+                            className="inline-block pr-[3px] text-sm rounded cursor-default transition-all duration-300 font-bold"
                         >
                             {item.name}
                         </span>

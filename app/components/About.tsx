@@ -32,7 +32,7 @@ return (
                 </div>
 
                 {/* Skills Section */}
-                <div className="pt-5">
+                <div className="lg:pt-5">
                     <Skills acfData={acf || {}} />
                 </div>
             </div>

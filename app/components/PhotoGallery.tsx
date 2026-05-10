@@ -37,25 +37,37 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
 
     return (
         <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-center">
                 
-                {/* LEFT COLUMN: Image (60% width on desktop) */}
-                <div className="lg:col-span-3 relative w-full h-[400px] md:h-[500px] lg:h-[600px] min-h-[400px] md:min-h-[500px] lg:min-h-[600px] rounded-2xl overflow-hidden bg-black shadow-lg">
+                {/* LEFT COLUMN: Image Div */}
+                <div className="lg:order-1 lg:col-span-3 relative w-full min-h-[350px] h-[350px] lg:min-h-[475px] lg:h-[475px] md:h-[400px] md:min-h-[400px] rounded-2xl overflow-hidden bg-black shadow-lg border">
                     <Image 
                         key={activePost.id} 
                         src={activePost.src} 
                         alt={activePost.alt} 
                         fill 
-                        className="object-contain animate-in fade-in blur-in duration-700"
+                        className="object-contain lg:object-cover animate-in fade-in blur-in duration-700"
                         priority 
                     />
                 </div>
 
-                {/* RIGHT COLUMN: Controls & Text (40% width on desktop) */}
-                <div className="lg:col-span-2 flex flex-col gap-8 justify-center">
+                {/* RIGHT COLUMN: Controls & Instruction */}
+                <div className="lg:order-2 lg:col-span-3 flex flex-col gap-8 justify-center">
                     
-                    {/* ICON NAVIGATION ROW - Adjusted for sidebar alignment */}
-                    <div className="flex flex-row flex-wrap lg:justify-start justify-center gap-6 pb-2 no-scrollbar">
+                    {/* CAPTION SECTION */}
+                    <div className="order-1 lg:order-2 h-[80px] lg:h-[120px] flex flex-col justify-start lg:text-left text-center overflow-y-auto no-scrollbar">
+                        {activePost?.caption && (
+                            <p className="text-md font-medium text-gray-200 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                                "{activePost.caption}"
+                            </p>
+                        )}
+                        <p className="text-sm text-gray-500 mt-auto pt-2">
+                            Life Update — 2026
+                        </p>
+                    </div>
+
+                    {/* ICON NAVIGATION ROW */}
+                    <div className="order-2 lg:order-1 flex flex-row flex-wrap lg:justify-start justify-center gap-4 pb-2 no-scrollbar">
                         {shuffledUpdates.map((post) => {
                             const isActive = activePost?.id === post.id;
                             return (
@@ -75,19 +87,12 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
                         })}
                     </div>
 
-                    {/* CAPTION SECTION */}
-                    <div className="h-[100px] lg:h-[120px] flex flex-col justify-start lg:text-left text-center overflow-y-auto no-scrollbar">
-                        {activePost?.caption && (
-                            <p className="text-md font-medium text-gray-200 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                                "{activePost.caption}"
-                            </p>
-                        )}
-                        <p className="text-sm text-gray-500 mt-auto pt-2">
-                            Life Update — 2026
-                        </p>
+                    {/* HOVER INSTRUCTION */}
+                    <div className="order-3 lg:order-none text-sm italic text-center lg:text-left">
+                        (Hover over the icons!)
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     );

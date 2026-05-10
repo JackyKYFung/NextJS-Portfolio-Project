@@ -7,7 +7,12 @@ export const TAG_THEMES: Record<string, string> = {
   tailwind: "bg-[#56B6C2]",   // Teal
   css: "bg-[#ff7b71]",
   wordpress: "bg-[#ffd800]",
-  acf: "bg-[#4ec9b0]",
+  acf: "bg-[#D6FF79]",
+  php: "bg-[#7BC5F6]",
+  elementor: "bg-[#4ec9b0]",
+  wpbakery: "bg-[#6A69B5]",
+  jquery: "bg-[#4ec9b0]",
+  html5: "bg-[#EE4266]",
   default: "bg-zinc-700",
 };
 

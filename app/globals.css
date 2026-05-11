@@ -263,3 +263,11 @@ summary {
   80% { transform:translate(3%, 35%) }
   90% { transform:translate(-10%, 10%) }
 }
+
+@theme {
+  /* This maps the utility 'font-mono' to your Space Mono variable */
+  --font-mono: var(--font-space-mono);
+  
+  /* You can also map 'font-sans' to Inter if you like */
+  --font-sans: var(--font-inter);
+}

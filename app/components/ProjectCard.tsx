@@ -21,7 +21,6 @@ export function ProjectCard({ project }: { project: any }) {
 
     const backUpIds = project.tech_stack || [];
 
-
     return (
         <Link href={`/projects/${project.slug}`} className="block h-full group">
             <article className="project-card">
@@ -33,7 +32,7 @@ export function ProjectCard({ project }: { project: any }) {
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-gray-900/0 group-hover:bg-gray-900/70 backdrop-blur-sm">
-                            <h1 className="text-2xl font-bold text-white px-4 text-center">
+                            <h1 className="text-2xl font-bold text-white px-4 text-center font-mono">
                                 {project.title.rendered}
                             </h1>
                         </div>
@@ -51,7 +50,7 @@ export function ProjectCard({ project }: { project: any }) {
                                     // Breathing animation
                                     animate={{
                                         y: [0, 15, 0], // Subtle lift (less than the big boxes)
-                                        x: [0, 35, 0],
+                                        x: [0, 30, 0],
                                     }}
                                     transition={{
                                         duration: 45 + (index % 15), // Randomized duration

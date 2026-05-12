@@ -22,9 +22,42 @@ export default function ProjectGallery({ project }: { project: any }) {
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16">
-                <BentoItem className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden h-[320px]">
-                    <img src={acf.project_thumbnail?.url} className="w-full h-full object-cover" alt="Thumbnail" />
-                </BentoItem>
+                <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden h-[320px] relative group border border-white border-[2px]">
+                    
+                    {/* 1. The Background Image with Dimming Logic */}
+                    <img 
+                        src={acf.project_thumbnail?.url} 
+                        className="w-full h-full object-cover transition-all duration-700 brightness-[0.2] group-hover:brightness-100 group-hover:scale-110" 
+                        alt={project.title.rendered} 
+                    />
+
+                    {/* 2. The "Fish Tank" Floating Title Block */}
+                    <motion.div
+                        animate={{
+                            // Randomized keyframes for a more "wandering" path
+                            x: [0, 90, -90, 90, -80, 90, 0], 
+                            y: [0, -90, 90, -80, 90, -90, 0],
+
+                        }}
+                        transition={{
+                            // X and Y wandering speed
+                            x: { duration: 60, repeat: Infinity, ease: "linear" },
+                            y: { duration: 55, repeat: Infinity, ease: "linear" },
+                            // Rotation speed (independent of X/Y for more chaos)
+                            rotate: { duration: 120, repeat: Infinity, ease: "linear" }
+                        }}
+                        className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-500"
+                    >
+                        <div className="px-6 py-4 rounded-xl max-w-[200px]">
+                        <h1 className="font-mono text-2xl font-black text-white  uppercase tracking-tighter text-center">
+                            {project.title.rendered}
+                        </h1>
+                        </div>
+                    </motion.div>
+
+                    {/* 3. Optional: Subtle scanline overlay to match your developer vibe */}
+                    <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,0,0.03))] bg-[length:100%_4px,3px_100%] opacity-20 group-hover:opacity-0 transition-opacity" />
+                    </div>
 
                 {/* Tech Stack Box */}
                 <BentoItem className="bg-zinc-900 rounded-3xl p-3 text-white flex flex-col justify-center">

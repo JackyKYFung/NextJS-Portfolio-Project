@@ -22,12 +22,12 @@ export default function ProjectGallery({ project }: { project: any }) {
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16">
-                <BentoItem className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden h-[400px]">
+                <BentoItem className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden h-[320px]">
                     <img src={acf.project_thumbnail?.url} className="w-full h-full object-cover" alt="Thumbnail" />
                 </BentoItem>
 
                 {/* Tech Stack Box */}
-                <BentoItem className="bg-zinc-900 rounded-3xl p-8 text-white flex flex-col justify-center">
+                <BentoItem className="bg-zinc-900 rounded-3xl p-3 text-white flex flex-col justify-center">
                     <h4 className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Tech Stack</h4>
                         <div className="flex flex-wrap gap-2">
                             {techStack.map((tag: any, index: number) => (

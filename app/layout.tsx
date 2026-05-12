@@ -4,7 +4,6 @@ import "@/app/globals.css";
 import { Header } from "@/app/components/header";
 import { Footer } from "@/app/components/footer";
 
-
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter', // Defines the CSS variable name
@@ -30,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable}`}>
       <body className="antialiased bg-[#111] text-white p-15 md:max-w-3xl lg:max-w-4xl  mx-auto">
-        
+
         <div 
           className="noise fixed inset-0 pointer-events-none z-[9999]" 
           aria-hidden="true" 

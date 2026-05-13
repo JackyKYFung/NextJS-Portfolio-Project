@@ -4,6 +4,7 @@ import { useState } from "react";
 import BentoItem from "./BentoItem";
 import Lightbox from "./Lightbox";
 import { getTagTheme } from "@/lib/tags";
+import { decodeHtml } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 export default function ProjectGallery({ project }: { project: any }) {
@@ -35,7 +36,7 @@ export default function ProjectGallery({ project }: { project: any }) {
                     <motion.div
                         animate={{
                             // Randomized keyframes for a more "wandering" path
-                            x: [0, 90, -90, 90, -80, 90, 0], 
+                            x: [0, 80, -80, 80, -80, 80, 0], 
                             y: [0, -90, 90, -80, 90, -90, 0],
 
                         }}
@@ -48,10 +49,16 @@ export default function ProjectGallery({ project }: { project: any }) {
                         }}
                         className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-500"
                     >
-                        <div className="px-6 py-4 rounded-xl max-w-[200px]">
-                        <h1 className="font-mono text-2xl font-black text-white  uppercase tracking-tighter text-center">
-                            {project.title.rendered}
-                        </h1>
+                        <div className="px-6 py-4 rounded-xl max-w-[200px] max-h-[200px] text-center">
+                            <h1 className="font-mono [font-size:1.5em] font-black text-white  uppercase tracking-tighter text-center leading-8">
+                                {decodeHtml(project.title.rendered)}
+                            </h1>
+                            <div className="my-1 h-[3px] w-[130px] bg-white mx-auto"
+                            >
+                               </div>
+                            <h1 className="font-mono [font-size:2cqw] font-black text-white  uppercase tracking-tighter text-center">
+                                {decodeHtml(acf.project_description)}
+                            </h1>
                         </div>
                     </motion.div>
 

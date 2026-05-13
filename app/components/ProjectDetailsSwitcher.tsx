@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ProgressStepper from "./ProgressStepper";
 import { RenderContent } from "./RenderContent";
-import BentoItem from "./BentoItem";
+import { RenderFormattedText } from "./RenderFormattedText";
 
 export default function ProjectDetailsSwitcher({ acf, title }: { acf: any, title: string }) {
     const [activeTab, setActiveTab] = useState("problem");
@@ -17,7 +17,7 @@ export default function ProjectDetailsSwitcher({ acf, title }: { acf: any, title
             </aside>
 
             {/* The Content Area */}
-            <div className="md:col-span-7">
+            <div className="md:col-span-7 text-[16px]">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeTab}
@@ -29,73 +29,31 @@ export default function ProjectDetailsSwitcher({ acf, title }: { acf: any, title
                         {/* Logic to render different types of content */}
                         {activeTab === "problem" && (
                             <section>
-                                <RenderContent html={acf.problem} />
+                               <RenderFormattedText text={acf.problem} />
                             </section>
                         )}
 
                         {activeTab === "goal" && (
                             <section>
-                                <BentoItem className="bg-zinc-900/50 p-8 rounded-3xl border border-white/5">
-                                    <ul className="space-y-4">
-                                        {/* You can map your requirements here */}
-                                        <li className="flex items-start gap-3 text-sm text-zinc-300">
-                                            <span className="text-white-500 font-bold">•</span>
-                                            <RenderContent html={acf.goal} />
-                                        </li>
-                                    </ul>
-                                </BentoItem>
-                            </section>
+                                <RenderFormattedText text={acf.goal} />
+                            </section>                
                         )}
 
-
                         {activeTab === "reqs" && (
-                            <ul className="space-y-6">
-                                {acf.core_requirements
-                                .split('\n')
-                                .filter((line: string) => line.trim() !== "")
-                                .map((req: string, index: number) => {
-                                // Split only at the FIRST colon to separate Header from Description
-                                    const [header, ...descriptionParts] = req.split(":");
-                                    const description = descriptionParts.join(":"); // Rejoin in case there are other colons
-
-                                    return (
-                                        <motion.li 
-                                        key={index}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        className="flex items-start gap-4 text-sm text-zinc-300 leading-relaxed"
-                                        >
-                                            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] shrink-0" />
-
-                                            <p>
-                                            {/* If a colon exists, bold the header. Otherwise, render the whole thing. */}
-                                            {description ? (
-                                            <>
-                                            <span className="font-bold text-white font-mono tracking-tight mr-1">
-                                                {header}:
-                                            </span>
-                                                {description}
-                                            </>
-                                            ) : (
-                                            req
-                                            )}
-                                            </p>
-                                        </motion.li>
-                                    );
-                                })}
-                            </ul>
+                            <section>
+                                <RenderFormattedText text={acf.core_requirements} />
+                            </section> 
                         )}
 
                         {activeTab === "solution" && (
                              <section>
-                                <RenderContent html={acf.solution} />
+                                <RenderFormattedText text={acf.solution} />
                              </section>
                         )}
 
                         {activeTab === "results" && (
                              <section>
-                                <RenderContent html={acf.results} />
+                                <RenderFormattedText text={acf.results} />
                              </section>
                         )}
                         

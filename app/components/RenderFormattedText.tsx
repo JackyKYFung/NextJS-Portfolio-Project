@@ -6,11 +6,24 @@ export const RenderFormattedText = ({ text }: {text?: string}) => {
 
     // render this if it is paragraph
     if (text.startsWith("p:")) {
+        // 1. Strip the prefix and split the text by newlines
+        const paragraphs = text
+            .replace("p:", "")
+            .split('\n')
+            .filter(paragraph => paragraph.trim() !== ""); // Remove empty lines
+
         return (
-            <p className="text-zinc-300 leading-relaxed mb-4">
-                {text.replace("p:", "").trim()}
-            </p>
-        )
+            <div className="space-y-4 mb-4">
+                {paragraphs.map((para, index) => (
+                    <p 
+                        key={index} 
+                        className="text-zinc-300 leading-relaxed"
+                    >
+                        {para.trim()}
+                    </p>
+                ))}
+            </div>
+        );
     }
 
     // render this if it is list

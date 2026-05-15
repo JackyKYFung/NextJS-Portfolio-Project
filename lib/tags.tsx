@@ -11,7 +11,7 @@ export const TAG_THEMES: Record<string, string> = {
   php: "bg-[#7BC5F6]",
   elementor: "bg-[#4ec9b0]",
   wpbakery: "bg-[#6A69B5]",
-  jquery: "bg-[#4ec9b0]",
+  jquery: "bg-[#A96760]",
   html5: "bg-[#EE4266]",
   default: "bg-zinc-700",
 };

@@ -19,6 +19,8 @@ export default function ProjectGallery({ project }: { project: any }) {
         return isTechStack && isNotAllProjects;
     }) || [];
 
+    const hasSnippet = acf.snippet_text && acf.snippet_text.trim() !== "";
+
 
     return (
         <>
@@ -67,7 +69,11 @@ export default function ProjectGallery({ project }: { project: any }) {
                     </div>
 
                 {/* Tech Stack Box */}
-                <BentoItem className="bg-zinc-900 rounded-3xl p-3 text-white flex flex-col justify-center">
+                <BentoItem className={`bg-zinc-900 rounded-3xl p-6 text-white flex flex-col justify-center transition-all duration-300 ${
+                    hasSnippet 
+                        ? "md:col-span-1 h-full" 
+                        : "md:col-span-2 h-[152px]" 
+                }`}>
                     <h4 className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Tech Stack</h4>
                         <div className="flex flex-wrap gap-2">
                             {techStack.map((tag: any, index: number) => (
@@ -76,9 +82,10 @@ export default function ProjectGallery({ project }: { project: any }) {
                                     // Breathing animation
                                     animate={{
                                         y: [0, -2, 0], // Subtle lift (less than the big boxes)
+                                        x: [0, 20, 0],
                                     }}
                                     transition={{
-                                        duration: 4 + (index % 4), // Randomized duration
+                                        duration: 30 + (index % 4), // Randomized duration
                                         repeat: Infinity,
                                         repeatType: "mirror",
                                         ease: "easeInOut",
@@ -94,18 +101,27 @@ export default function ProjectGallery({ project }: { project: any }) {
 
                 {/* Lightbox Trigger */}
                 <BentoItem 
-                    className="group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800"
+                    className={`group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800 transition-all duration-300 ${
+                    hasSnippet 
+                        ? "md:col-span-1 h-full" 
+                        : "md:col-span-2 h-[152px]"
+                    }`}
                     onClick={() => setIsLightboxOpen(true)}
                 >
                     <img src={acf.preview_crop?.url} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Preview" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span className="text-white text-xs font-bold uppercase underline">View Full Screenshot</span>
+                        <span className="px-1 text-white text-xs text-center font-bold uppercase leading-normal underline">View Full Screenshot</span>
                     </div>
                 </BentoItem>
 
-                <BentoItem className="md:col-span-2 bg-blue-50 rounded-3xl p-8 flex items-center">
-                    <p className="text-blue-900 text-lg italic leading-relaxed font-medium">"{acf.snippet_text}"</p>
+                {/* Snippet Text only show if not empty */}
+                {acf.snippet_text && acf.snippet_text.trim() !== "" && (
+                <BentoItem className="md:col-span-2 bg-zinc-900/40 border border-white/5 backdrop-blur-sm rounded-3xl p-8 flex items-center">
+                    <p className="text-zinc-300 text-lg italic leading-relaxed font-medium">
+                        "{acf.snippet_text}"
+                    </p>
                 </BentoItem>
+                )}
             </div>
 
             <Lightbox 

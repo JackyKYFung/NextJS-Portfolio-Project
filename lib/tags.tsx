@@ -1,10 +1,10 @@
 // lib/tags.ts
 
 export const TAG_THEMES: Record<string, string> = {
-  javascript: "bg-[#FFA556]", // The orange from your screenshot
-  react: "bg-[#61AFEF]",      // The blue from your screenshot
-  nextjs: "bg-[#ABB2BF]",     // A sleek gray
-  tailwind: "bg-[#56B6C2]",   // Teal
+  javascript: "bg-[#FFA556]", 
+  react: "bg-[#61AFEF]",      
+  nextjs: "bg-[#B2FFA8]",     
+  tailwind: "bg-[#56B6C2]",   
   css: "bg-[#ff7b71]",
   wordpress: "bg-[#ffd800]",
   acf: "bg-[#D6FF79]",
@@ -12,8 +12,12 @@ export const TAG_THEMES: Record<string, string> = {
   elementor: "bg-[#4ec9b0]",
   wpbakery: "bg-[#6A69B5]",
   jquery: "bg-[#A96760]",
-  html5: "bg-[#EE4266]",
-  default: "bg-zinc-700",
+  html5: "bg-[#F36987]",
+  "framer motion": "bg-[#FF0A74]",
+  "headless wordpress": "bg-[#ffd800]",
+  "graphql/rest api": "bg-[#FF674D]",
+  vercel: "bg-[#022248]/200 text-white",
+  default: "bg-black text-white",
 };
 
 /**

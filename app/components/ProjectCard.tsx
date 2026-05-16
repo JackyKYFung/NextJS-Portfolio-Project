@@ -24,8 +24,8 @@ export function ProjectCard({ project }: { project: any }) {
     return (
         <Link href={`/projects/${project.slug}`} className="block h-full group">
             <article className="project-card">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-start">
-                    <div className="md:col-span-3 group relative overflow-hidden rounded-xl lg:hover:bg-gray-900/90 h-60 border">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+                    <div className="md:col-span-8 group relative overflow-hidden rounded-xl lg:hover:bg-gray-900/90 h-60 border">
                         <img 
                             src={project.acf?.project_thumbnail?.url} 
                             className="w-full object-cover transition-all duration-300 lg:group-hover:blur-sm lg:group-hover:scale-105"
@@ -37,7 +37,7 @@ export function ProjectCard({ project }: { project: any }) {
                             </h1>
                         </div>
                     </div>
-                    <div className="md:col-span-1 flex flex-wrap gap-2 w-full border p-5 rounded-xl blur-[2px] group-hover:blur-[0] duration-300">
+                    <div className="md:col-span-4 flex flex-wrap gap-2 w-full border p-4 rounded-xl blur-[2px] group-hover:blur-[0] duration-300 bg-gray-500/10">
                         {techStack.length > 0 ? (
                             techStack.map((tag: any, index: number) => {
 
@@ -60,7 +60,7 @@ export function ProjectCard({ project }: { project: any }) {
                                         delay: index * 0.2, // Staggered start times
                                     }}
                                     className={`
-                                        relative px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] 
+                                        relative px-2 py-1 text-[9px] font-bold uppercase tracking-[0.2em] 
                                         text-black/80 rounded-full shadow-lg inline-block duration-300
                                         bg-gradient-to-br backdrop-blur-md
                                         ${theme}`}

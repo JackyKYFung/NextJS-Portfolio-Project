@@ -6,6 +6,7 @@ import Lightbox from "./Lightbox";
 import { getTagTheme } from "@/lib/tags";
 import { decodeHtml } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function ProjectGallery({ project }: { project: any }) {
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -19,6 +20,7 @@ export default function ProjectGallery({ project }: { project: any }) {
         return isTechStack && isNotAllProjects;
     }) || [];
 
+    const [isSnippetExpanded, setIsSnippetExpanded] = useState(false);
     const hasSnippet = acf.snippet_text && acf.snippet_text.trim() !== "";
 
 
@@ -51,7 +53,7 @@ export default function ProjectGallery({ project }: { project: any }) {
                         }}
                         className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-500"
                     >
-                        <div className="px-6 py-4 rounded-xl max-w-[200px] max-h-[200px] text-center">
+                        <div className="px-6 py-4 rounded-xl max-w-[210px] max-h-[200px] text-center">
                             <h1 className="font-mono [font-size:1.5em] font-black text-white  uppercase tracking-tighter text-center leading-8">
                                 {decodeHtml(project.title.rendered)}
                             </h1>
@@ -116,10 +118,36 @@ export default function ProjectGallery({ project }: { project: any }) {
 
                 {/* Snippet Text only show if not empty */}
                 {acf.snippet_text && acf.snippet_text.trim() !== "" && (
-                <BentoItem className="md:col-span-2 bg-zinc-900/40 border border-white/5 backdrop-blur-sm rounded-3xl p-8 flex items-center">
-                    <p className="text-zinc-300 text-lg italic leading-relaxed font-medium">
-                        "{acf.snippet_text}"
-                    </p>
+                <BentoItem 
+                    onClick={() => setIsSnippetExpanded(!isSnippetExpanded)}                
+                    className={`md:col-span-2 md:col-start-3 bg-black/60 border-2 border-emerald-500/20 backdrop-blur-sm rounded-3xl p-6 pb-7 flex flex-col justify-between cursor-pointer relative group transition-[max-height,border-color,background-color] duration-500 ease-in-out hover:border-emerald-500 hover:bg-black/80 ${
+                        isSnippetExpanded ? "max-h-[500px]" : "max-h-[110px]"
+                    }`}
+                >
+                    {/* Speech Bubble Arrow Tail */}
+                    <div className="absolute left-[-7px] top-12 w-3 h-3 bg-black rotate-45 z-10 transition-colors duration-500 ease-in-out
+                        border-l-2 border-b-2 border-emerald-500/20
+                        group-hover:border-emerald-500" 
+                    />
+
+                    {/* Text Container - FIX: Kept overflow-hidden permanently and animated its max-height */}
+                    <div 
+                        className={`relative z-20 overflow-hidden transition-[max-height] duration-500 ease-in-out ${
+                            isSnippetExpanded ? "max-h-[400px]" : "max-h-[104px]"
+                        }`}
+                    >
+                        <p className="text-emerald-400 text-xs md:text-sm italic leading-relaxed font-medium">
+                            "{acf.snippet_text}"
+                        </p>
+                    </div>
+
+                    {/* Interactive Hint Indicator */}
+                    <div className="absolute bottom-[2px] right-4 flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-zinc-500 group-hover:text-emerald-400 transition-colors duration-300">
+                        <span>{isSnippetExpanded ? "Collapse" : "Expand Summary"}</span>
+                        <span className={`text-xs font-bold transition-transform duration-300 ${isSnippetExpanded ? "rotate-180" : "group-hover:translate-y-[-2px]"}`}>
+                            <ChevronDown />
+                        </span>
+                    </div>
                 </BentoItem>
                 )}
             </div>

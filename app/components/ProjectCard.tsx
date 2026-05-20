@@ -6,86 +6,83 @@ import { motion } from "framer-motion";
 import { Frown } from "lucide-react";
 
 export function ProjectCard({ project }: { project: any }) {
-
     const techStack = project._embedded?.['wp:term']
         ?.flat()
         ?.filter((term: any) => {
-            // 1. Only allow terms that belong to the 'tech_stack' taxonomy
             const isActuallyTech = term.taxonomy === 'tech_stack';
-
-            // 2. Explicitly block the "All Projects" name just in case
             const isNotAllProjects = term.name?.toLowerCase().trim() !== 'all projects';
-
             return isActuallyTech && isNotAllProjects;
         }) || [];
 
     const backUpIds = project.tech_stack || [];
 
     return (
-        <Link href={`/projects/${project.slug}`} className="block h-full group">
-            <article className="project-card">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
-                    <div className="md:col-span-8 group relative overflow-hidden rounded-xl lg:hover:bg-gray-900/90 h-60 border">
-                        <img 
-                            src={project.acf?.project_thumbnail?.url} 
-                            className="w-full object-cover transition-all duration-300 lg:group-hover:blur-sm lg:group-hover:scale-105"
-                        />
+        <Link href={`/projects/${project.slug}`} className="block w-full h-full group">
+            <article className="relative w-full aspect-square rounded-2xl border border-white border-[2px] bg-zinc-500 overflow-hidden transition-all duration-500 hover:border-emerald-500 shadow-xl">
+                
+                {/* 1. Project Thumbnail Background */}
+                <div className="absolute inset-0 w-full h-full z-0">
+                    <img 
+                        src={project.acf?.project_thumbnail?.url} 
+                        className="w-full h-full object-cover opacity-100 transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-10 group-hover:blur-[2px]"
+                    />
+                    {/* Ambient Overlay to darken the image slightly on rest, and deeply on hover */}
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/80 transition-colors duration-500" />
+                </div>
 
-                        <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 bg-gray-900/0 group-hover:bg-gray-900/70 backdrop-blur-sm">
-                            <h1 className="text-2xl font-bold text-white px-4 text-center font-mono">
-                                {project.title.rendered}
-                            </h1>
-                        </div>
-                    </div>
-                    <div className="md:col-span-4 flex flex-wrap gap-2 w-full border p-4 rounded-xl blur-[2px] group-hover:blur-[0] duration-300 bg-gray-500/10">
-                        {techStack.length > 0 ? (
-                            techStack.map((tag: any, index: number) => {
-
-                                const theme = getTagTheme(tag.name);
-                                //console.log("Filtered Tech Stack:", tag);
-
-                                return (
-                                    <motion.span 
+                {/* 2. Floating Tech Stack Layer (Sharp on rest, blurs out on hover) */}
+                <div className="absolute inset-0 p-6 flex flex-wrap content-start gap-2 z-10 transition-all duration-500 pointer-events-none group-hover:blur-[3px] group-hover:opacity-30">
+                    {techStack.length > 0 ? (
+                        techStack.map((tag: any, index: number) => {
+                            const theme = getTagTheme(tag.name);
+                            return (
+                                <motion.span 
                                     key={tag.id}
-                                    // Breathing animation
                                     animate={{
-                                        y: [0, 15, 0], // Subtle lift (less than the big boxes)
-                                        x: [0, 30, 0],
+                                        y: [0, 22, 0],
+                                        x: [0, 32, 0],
                                     }}
                                     transition={{
-                                        duration: 45 + (index % 15), // Randomized duration
+                                        duration: 35 + (index % 10),
                                         repeat: Infinity,
                                         repeatType: "mirror",
                                         ease: "easeInOut",
-                                        delay: index * 0.2, // Staggered start times
+                                        delay: index * 0.15,
                                     }}
                                     className={`
-                                        relative px-2 py-1 text-[9px] font-bold uppercase tracking-[0.2em] 
-                                        text-black/80 rounded-full shadow-lg inline-block duration-300
-                                        bg-gradient-to-br backdrop-blur-md
+                                        px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] 
+                                        text-black/90 rounded-full shadow-md inline-block
+                                        bg-gradient-to-br backdrop-blur-md 
                                         ${theme}`}
-                                        >
-                                            {tag.name}
-                                    </motion.span>
-                                )
-                            })
-                            ) : backUpIds.length > 0 ? (
-                                // If names are missing, show the IDs we saw in your console log
-                                backUpIds.map((id: number) => (
-                                    <span key={id} className="bg-red-900/10 text-red-400 text-[10px] px-2 py-1 rounded border border-red-900/30">
-                                        ID: {id}
-                                    </span>
-                                ))
-                            ) : (
-                                <span className="text-gray-600 text-[10px]">No tags found 
-                                <Frown className="inline-block ml-1" size={16}/>
-                                </span>
-                            )}
-                    </div>
+                                >
+                                    {tag.name}
+                                </motion.span>
+                            );
+                        })
+                    ) : backUpIds.length > 0 ? (
+                        backUpIds.map((id: number) => (
+                            <span key={id} className="bg-red-900/20 text-red-400 text-[9px] px-2 py-0.5 rounded border border-red-900/30 font-mono">
+                                ID: {id}
+                            </span>
+                        ))
+                    ) : (
+                        <span className="text-zinc-500 text-[9px] font-mono flex items-center gap-1">
+                            SYSTEM_EMPTY <Frown size={12}/>
+                        </span>
+                    )}
                 </div>
 
+                {/* 3. Project Title Layer (Hidden/Transparent on rest, fades in sharply on hover) */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out transform translate-y-2 group-hover:translate-y-0">
+                    <h1 className="text-xl md:text-2xl font-bold text-white text-center font-mono tracking-wide drop-shadow-md">
+                        {project.title.rendered}
+                    </h1>
+                    <span className="mt-2 text-[10px] font-mono uppercase tracking-widest text-emerald-400 border border-emerald-500/30 bg-emerald-950/40 px-3 py-1 rounded-full backdrop-blur-sm">
+                        Inspect Case Study →
+                    </span>
+                </div>
 
             </article>
         </Link>
-                )
+    );
 }

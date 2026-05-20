@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Add this line right here to activate the prose engine */
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -270,4 +269,23 @@ summary {
   
   /* You can also map 'font-sans' to Inter if you like */
   --font-sans: var(--font-inter);
+}
+
+/* 1. Target paragraphs specifically carrying the text-zinc-300 utility */
+.focus-reading-block p.text-zinc-300 {
+  transition: all 300ms ease-in-out !important;
+  cursor: default !important;
+  transform-origin: left !important;
+  color: #d4d4d8 !important; 
+}
+
+/* 2. Force-dim the utility-locked paragraphs when the parent block is hovered */
+.focus-reading-block:hover p.text-zinc-300 {
+  color: #52525b !important; 
+}
+
+/* 3. Bring the active reading paragraph all the way up to crisp zinc-100 */
+.focus-reading-block p.text-zinc-300:hover {
+  color: #f4f4f5 !important;
+  transform: scale(1.002) !important;
 }

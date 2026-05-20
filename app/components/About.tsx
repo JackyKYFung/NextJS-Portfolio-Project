@@ -22,9 +22,9 @@ return (
                 <div className="bio-content prose max-w-none pt-5">
                     {pageData?.content?.rendered && (
                         <>
-                            <h1 className="font-bold text-3xl">About Me</h1>
+                            <h1 className="font-bold text-3xl text-white">About Me</h1>
                             <div
-                                className="mt-5" 
+                                className="mt-5 text-white" 
                                 dangerouslySetInnerHTML={{ __html: pageData.content.rendered }} 
                             />
                         </>

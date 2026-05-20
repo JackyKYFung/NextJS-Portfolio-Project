@@ -1,6 +1,5 @@
 import React from "react";
 
-// 1. Move the helper to its own file 
 export const RenderContent = ({ 
     html, 
     fallback = "Technical details for this section are coming soon!" 
@@ -18,7 +17,8 @@ export const RenderContent = ({
 
     return (
         <div 
-            className="prose prose-invert prose-blue max-w-none text-zinc-300 leading-relaxed"
+            /* We add the class 'focus-reading-block' so we can target it in our CSS file */
+            className="prose prose-invert max-w-none text-zinc-300 leading-relaxed focus-reading-block"
             dangerouslySetInnerHTML={{ __html: html }} 
         />
     );

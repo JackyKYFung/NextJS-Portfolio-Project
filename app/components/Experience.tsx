@@ -14,7 +14,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
     return (
 
      
-    <section className="text-left mt-10 animate-fade-in">
+    <section className="text-left mt-5 animate-fade-in border-[2px]rounded-3xl">
         {Array.isArray(experiences) && experiences.map((experience: any) => {
 
                 // Get job details string from ACF 
@@ -31,19 +31,19 @@ export function Experience({ experiences }: { experiences: any[] }) {
                 // The accordion heading
                 <div 
                     key={experience.id} 
-                    className={`experience-tab mb-5 overflow-hidden transition-all duration-300 rounded-xl hover:bg-zinc-500/10 border-1             
+                    className={`experience-tab overflow-hidden transition-all duration-300 rounded-xl hover:bg-zinc-500/20 border-2             
                         ${isOpen 
                             ? "border-white shadow-md" : "border-black/0"                     
                         }
                     `}>
                     <div 
-                        className="experience-title p-5 cursor-pointer w-full text-left"
+                        className="experience-title py-5 px-5 cursor-pointer w-full text-left"
                         onClick={() => toggleAccordion(experience.id)}
                         >
 
                         <div className="summary-content flex flex-wrap w-full">
                             <div className="summary-row flex flex-row justify-between items-baseline w-full">
-                            <span className="job-title font-semibold">
+                            <span className="job-title font-semibold]">
                                 {experience.acf?.job_title}
                             </span>
                             <span className="date text-sm opacity-70 whitespace-nowrap">
@@ -62,7 +62,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
                         className={`grid transition-all duration-300 ease-in-out ${ isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0" } `}
                         >
                         <div className="overflow-hidden">        
-                            <ul className="p-5 space-y-2"
+                            <ul className="p-5 space-y-2 pt-0"
                                 style={{
                                     listStyle: "disc",
                                     paddingLeft: "35px"

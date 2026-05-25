@@ -74,7 +74,7 @@ return (
 <section className="animate-fade-in">
 
 
-            <div className="skills-wrapper grid grid-cols-[100px_1fr] max-w-fit mx-auto lg:max-w-none  py-5 px-2 border rounded-xl ">
+            <div className="skills-wrapper grid grid-cols-[100px_1fr] max-w-fit mx-auto lg:max-w-none  py-5 px-2 border-[2px] rounded-xl ">
                {/* Sidebar */}
                 <h1 className="mb-5 items-end text-right font-bold">My Skills</h1>
                 <div className="self-center pl-5 mb-5">
@@ -98,7 +98,7 @@ return (
                         <span 
                             key={`${item.name}-${index}`}
                             data-cat={item.category}
-                            className="inline-block pr-[3px] text-sm rounded cursor-default transition-all duration-300 font-bold"
+                            className="inline-block pr-[3px] text-lg md:text-md lg:text-sm rounded cursor-default transition-all duration-300 font-bold"
                         >
                             {item.name}
                         </span>

@@ -1,5 +1,5 @@
 import { About } from "../components/About";
-import { getPageBySlug, getLifeUpdates } from "@/lib/wp";
+import { getPageBySlug, getLifeUpdates, getData } from "@/lib/wp";
 
 export default async function AboutPage() {
 
@@ -12,9 +12,12 @@ export default async function AboutPage() {
     
     //console.log("SERVER-SIDE FETCH RESULT:", JSON.stringify(pageData, null, 2));
 
+    const expData = await getData("experience", "orderby=date&order=desc");
+
+
     return (
         <main className="animate-fade-in">
-            <About pageData={pageData} updates={updates} />
+            <About pageData={pageData} updates={updates} experiences={expData} />
         </main>
     )
 }

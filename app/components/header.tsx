@@ -1,107 +1,138 @@
 "use client";
+
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Atom, Blocks, FingerprintPattern, HeartHandshake, Home } from "lucide-react";
+import { Atom, FingerprintPattern, HeartHandshake } from "lucide-react";
+import ContactDrawer from "@/app/components/ContactSlider"; // Adjust paths based on your folder structure
 
 export function Header() {
     const pathname = usePathname();
-    //This "reads" the current URL state
+    const [isContactOpen, setIsContactOpen] = useState(false);
 
     return (
         <header className="flex justify-between mb-[30px] content-center">
             <div className="font-bold text-2xl">
-                <Link href={'/'}>jFunki</Link>
+                <Link href={'/'}>jfunki</Link>
             </div>
 
             <nav>
-                <ul className="flex gap-5 items-center ">
-                    <li>
-                       
-                        <Link 
-                            href='/'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/" ? "text-white font-bold" : "opacity-80 hover:opacity-100 text-xs"}`}
-                            >
-                                <span>HO</span>
-                                <Home className="w-[1.0em] h-[1.0em] stroke-[2.5] text-current translate-y-[0px] px-[1px]" />
-                                <span>E</span>
-                                <span 
-                                    className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
-                                        pathname === "/" 
-                                            ? "w-full"             // <-- Full width and stays when page is active
-                                            : "w-0 group-hover:w-full" // <-- Hidden by default, slides out on hover
-                                    }`} 
-                                />
-                        </Link>
-                    </li>
+                <ul className="flex gap-7 items-center">
+                    
+                    {/* ABOUT MENU ITEM */}
                     <li>
                         <Link 
                             href='/about'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/about" ? "text-white font-bold text-sm" : "opacity-80 hover:opacity-100 text-xs"}`}
-                            >
-                                <span>AB</span>
-                                <FingerprintPattern className="w-[0.9em] h-[0.9em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
-                                <span>UT</span>
-                                <span 
-                                    className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
-                                        pathname === "/about" 
-                                            ? "w-full"             // <-- Full width and stays when page is active
-                                            : "w-0 group-hover:w-full" // <-- Hidden by default, slides out on hover
-                                    }`} 
-                                />
+                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/about" ? "text-white font-bold text-md" : "opacity-80 hover:opacity-100"}`}
+                        >
+                            {/* LEFT SIDE LETTERS */}
+                            <span className={`grid transition-all duration-300 ease-out ${
+                                pathname === "/about" 
+                                    ? "grid-cols-[1fr] opacity-100" 
+                                    : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
+                            }`}>
+                                <span className="overflow-hidden whitespace-nowrap tracking-wider">AB</span>
+                            </span>
+                            
+                            {/* CORE ICON ANCHOR */}
+                            <FingerprintPattern className="w-[1em] h-[1em] stroke-[2.5] text-current mx-[2px] mb-[3px] shrink-0" />
+                            
+                            {/* RIGHT SIDE LETTERS */}
+                            <span className={`grid transition-all duration-300 ease-out ${
+                                pathname === "/about" 
+                                    ? "grid-cols-[1fr] opacity-100" 
+                                    : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
+                            }`}>
+                                <span className="overflow-hidden whitespace-nowrap tracking-wider">UT</span>
+                            </span>
+
+                            <span 
+                                className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
+                                    pathname === "/about" ? "w-full" : "w-0 group-hover:w-full"
+                                }`} 
+                            />
                         </Link>
                     </li>
+
+                    {/* PROJECTS MENU ITEM */}
                     <li>
                         <Link 
                             href='/projects'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/projects" ? "text-white font-bold text-sm" : "opacity-80 hover:opacity-100 text-xs"}`}
-                            >
-                                <span>PR</span>
-                                <Atom className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
-                                <span>JECTS</span>
-                                <span 
-                                    className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
-                                        pathname === "/projects" 
-                                            ? "w-full"             // <-- Full width and stays when page is active
-                                            : "w-0 group-hover:w-full" // <-- Hidden by default, slides out on hover
-                                    }`} 
-                                />
+                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/projects" ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                        >
+                            {/* LEFT SIDE LETTERS */}
+                            <span className={`grid transition-all duration-300 ease-out ${
+                                pathname === "/projects" 
+                                    ? "grid-cols-[1fr] opacity-100" 
+                                    : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
+                            }`}>
+                                <span className="overflow-hidden whitespace-nowrap tracking-wider">PR</span>
+                            </span>
+
+                            {/* CORE ICON ANCHOR */}
+                            <Atom className="w-[1em] h-[1em] stroke-[2.5] text-current mx-[2px] mb-[3px] shrink-0" />
+                            
+                            {/* RIGHT SIDE LETTERS */}
+                            <span className={`grid transition-all duration-300 ease-out ${
+                                pathname === "/projects" 
+                                    ? "grid-cols-[1fr] opacity-100" 
+                                    : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
+                            }`}>
+                                <span className="overflow-hidden whitespace-nowrap tracking-wider">JECTS</span>
+                            </span>
+
+                            <span 
+                                className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
+                                    pathname === "/projects" ? "w-full" : "w-0 group-hover:w-full"
+                                }`} 
+                            />
                         </Link>
                     </li>
+
+                    {/* CONTACT MENU ITEM */}
                     <li>
-                        <Link 
-                            href='/experience'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/experience" ? "text-white font-bold text-sm" : "opacity-80 hover:opacity-100 text-xs"}`}
-                            >
-                                <Blocks className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
-                                <span>XPERIENCE</span>
-                                <span 
-                                    className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
-                                        pathname === "/experience" 
-                                            ? "w-full"             // <-- Full width and stays when page is active
-                                            : "w-0 group-hover:w-full" // <-- Hidden by default, slides out on hover
-                                    }`} 
-                                />
-                        </Link>
+                        <button
+                            onClick={() => setIsContactOpen(true)}
+                            className={`relative transition-all duration-200 flex items-center group pb-1 cursor-pointer ${isContactOpen ? "text-white font-bold" : "opacity-80 hover:opacity-100"}`}
+                        >
+                            {/* LEFT SIDE LETTERS */}
+                            <span className={`grid transition-all duration-300 ease-out  ${
+                                isContactOpen 
+                                    ? "grid-cols-[1fr] opacity-100" 
+                                    : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
+                            }`}>
+                                <span className="overflow-hidden whitespace-nowrap tracking-wider">C</span>
+                            </span>
+
+                            {/* CORE ICON ANCHOR */}
+                            <HeartHandshake className="w-[1em] h-[1em] stroke-[2.5] text-current mx-[2px] mb-[3px] shrink-0" />
+                            
+                            {/* RIGHT SIDE LETTERS */}
+                            <span className={`grid transition-all duration-300 ease-out ${
+                                isContactOpen 
+                                    ? "grid-cols-[1fr] opacity-100" 
+                                    : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
+                            }`}>
+                                <span className="overflow-hidden whitespace-nowrap tracking-wider">NTACT</span>
+                            </span>
+
+                            <span 
+                                className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
+                                    isContactOpen ? "w-full" : "w-0 group-hover:w-full"
+                                }`} 
+                            />
+                        </button>
                     </li>
-                    <li>
-                        <Link 
-                            href='/contact'
-                            className={`relative transition-all duration-200 flex items-center group pb-1 ${pathname === "/contact" ? "text-white font-bold text-sm" : "opacity-80 hover:opacity-100 text-xs"}`}
-                            >
-                                <span>C</span>
-                                <HeartHandshake className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
-                                <span>NTACT</span>
-                                <span 
-                                    className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-300 origin-left ${
-                                        pathname === "/contact" 
-                                            ? "w-full"             // <-- Full width and stays when page is active
-                                            : "w-0 group-hover:w-full" // <-- Hidden by default, slides out on hover
-                                    }`} 
-                                />
-                        </Link>
-                    </li>
+
                 </ul>
             </nav>
+
+            {/* THE DRAWER COMPONENT HOOK */}
+            <ContactDrawer 
+                isOpen={isContactOpen} 
+                onClose={() => setIsContactOpen(false)} 
+            />                        
+
         </header>
-    )
+    );
 }

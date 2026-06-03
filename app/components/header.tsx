@@ -31,7 +31,7 @@ export function Header() {
                                     ? "grid-cols-[1fr] opacity-100" 
                                     : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
                             }`}>
-                                <span className="overflow-hidden whitespace-nowrap tracking-wider">AB</span>
+                                <span className="overflow-hidden whitespace-nowrap">AB</span>
                             </span>
                             
                             {/* CORE ICON ANCHOR */}
@@ -43,7 +43,7 @@ export function Header() {
                                     ? "grid-cols-[1fr] opacity-100" 
                                     : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
                             }`}>
-                                <span className="overflow-hidden whitespace-nowrap tracking-wider">UT</span>
+                                <span className="overflow-hidden whitespace-nowrap">UT</span>
                             </span>
 
                             <span 
@@ -66,7 +66,7 @@ export function Header() {
                                     ? "grid-cols-[1fr] opacity-100" 
                                     : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
                             }`}>
-                                <span className="overflow-hidden whitespace-nowrap tracking-wider">PR</span>
+                                <span className="overflow-hidden whitespace-nowrap">PR</span>
                             </span>
 
                             {/* CORE ICON ANCHOR */}
@@ -78,7 +78,7 @@ export function Header() {
                                     ? "grid-cols-[1fr] opacity-100" 
                                     : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
                             }`}>
-                                <span className="overflow-hidden whitespace-nowrap tracking-wider">JECTS</span>
+                                <span className="overflow-hidden whitespace-nowrap">JECTS</span>
                             </span>
 
                             <span 
@@ -101,7 +101,7 @@ export function Header() {
                                     ? "grid-cols-[1fr] opacity-100" 
                                     : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
                             }`}>
-                                <span className="overflow-hidden whitespace-nowrap tracking-wider">C</span>
+                                <span className="overflow-hidden whitespace-nowrap">C</span>
                             </span>
 
                             {/* CORE ICON ANCHOR */}
@@ -113,7 +113,7 @@ export function Header() {
                                     ? "grid-cols-[1fr] opacity-100" 
                                     : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"
                             }`}>
-                                <span className="overflow-hidden whitespace-nowrap tracking-wider">NTACT</span>
+                                <span className="overflow-hidden whitespace-nowrap">NTACT</span>
                             </span>
 
                             <span 

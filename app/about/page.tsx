@@ -10,14 +10,24 @@ export default async function AboutPage() {
         getLifeUpdates()
     ]);
     
-    //console.log("SERVER-SIDE FETCH RESULT:", JSON.stringify(pageData, null, 2));
-
     const expData = await getData("experience", "orderby=date&order=desc");
 
+    // when fetching pages by filtering through a slug, WP may send back a JSON 
+    // array instead of JSON object beacuse it doesn't know if database contain 
+    // duplicate slug. So we use a rawPageObject to verify and break it up 
+    // if the returned response was a JSON Array.  
+    
+    const rawPageObject = Array.isArray(pageData) ? pageData[0] : pageData;
+    const upcomingProjData = rawPageObject?.acf?.upcoming_projects || "";
 
     return (
         <main className="animate-fade-in">
-            <About pageData={pageData} updates={updates} experiences={expData} />
+            <About 
+                pageData={pageData} 
+                updates={updates} 
+                experiences={expData} 
+                upcomingProjects={upcomingProjData}    
+            />
         </main>
     )
 }

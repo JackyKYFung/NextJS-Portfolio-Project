@@ -2,11 +2,18 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, ArrowRight } from "lucide-react";
+import { X, Mail } from "lucide-react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-interface ContactDrawerProps {
+interface ContactSliderProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+interface ContactInputs {
+  name: string;
+  email: string;
+  message: string;
 }
 
 export function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
@@ -28,10 +35,9 @@ export function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) 
   );
 }
 
-export default function ContactSlider({ isOpen, onClose }: ContactDrawerProps) {
-  
-  // LOCK SCROLL: Prevents the background portfolio page from scrolling 
-  // underneath the drawer while it's open (crucial for mobile UX!)
+export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
+
+  // Locks scroll on main page when slider is open 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -42,6 +48,22 @@ export default function ContactSlider({ isOpen, onClose }: ContactDrawerProps) {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
+
+  // Core form utilities
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors }, 
+    reset
+  } = useForm<ContactInputs>();
+
+  // form validation success
+  const onSubmit: SubmitHandler<ContactInputs> = (data) => {
+    console.log("Form submission successful!");
+    
+    reset();
+    onClose();
+  }
 
   return (
     <AnimatePresence>
@@ -56,27 +78,48 @@ export default function ContactSlider({ isOpen, onClose }: ContactDrawerProps) {
             className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm pointer-events-auto"
           />
 
-          {/* 2. DRAWER CONTAINER: Mobile=Full screen, Desktop=Slick side panel */}
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 260 }}
-            className="fixed right-0 top-0 z-50 h-full w-full md:max-w-md bg-zinc-950 border-l border-zinc-800 text-white p-6 md:p-8 flex flex-col pointer-events-auto shadow-2xl"
-          >
-            {/* STICKY TOP ESCAPE HATCH */}
-            <div className="flex items-center justify-between pb-6 border-b border-zinc-800">
-              <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
-                Connect Hub
-              </h2>
-              <button
-                onClick={onClose}
-                className="p-2 -mr-2 rounded-full hover:bg-zinc-900 transition-colors text-zinc-400 hover:text-white outline-none"
-                aria-label="Close panel"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+{/* 2. DRAWER CONTAINER */}
+<motion.div
+  initial={{ x: "100%" }}
+  animate={{ x: 0 }}
+  exit={{ 
+    x: "100%",
+    transition: { type: "tween", ease: "easeInOut", duration: 0.3 } // <-- Handles exit timing cleanly
+  }}
+  transition={{ type: "spring", damping: 30, stiffness: 260 }} // <-- Stable spring config for entering
+  className="fixed right-0 top-0 z-50 h-full w-full md:max-w-md bg-zinc-950 border-l border-zinc-800 text-white p-6 md:p-8 flex flex-col pointer-events-auto shadow-2xl"
+>
+  
+{/* STICKY TOP ESCAPE HATCH (Exit-Only Rotation Mechanics) */}
+<div className="flex items-center justify-between pb-6 border-b border-zinc-800">
+  <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
+    Connect Hub
+  </h2>
+  
+  <button
+    onClick={onClose}
+    className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-emerald-400 outline-none -mr-1"
+    aria-label="Close panel"
+  >
+    <motion.div
+      // 1. Force it to start at -180 (pointing left) immediately on mount
+      initial={{ rotate: -180 }} 
+      // 2. Sit at -180 while open; only transition to 0 (pointing right) on close
+      animate={{ 
+        rotate: isOpen ? -180 : 0     
+      }}
+      transition={{ 
+        type: "tween", 
+        ease: "easeInOut", 
+        duration: 0.35,
+        delay: 0 // Fires instantly on click to maximize the visual feedback
+      }}
+      className="flex items-center justify-center"
+    >
+      <X className="h-6 w-6" />
+    </motion.div>
+  </button>
+</div>
 
             {/* SCROLLABLE BODY LAYER (overflow-y-auto enables safe mobile keyboard handling) */}
             <div className="flex-1 overflow-y-auto py-6 space-y-8 pr-1 scrollbar-thin">
@@ -92,33 +135,29 @@ export default function ContactSlider({ isOpen, onClose }: ContactDrawerProps) {
               </div>
 
               {/* DIRECT CONNECT LINKS (Built-in anti-spam ecosystem) */}
-              <div className="grid grid-cols-1 gap-3">
-                <a
-                  href="https://linkedin.com" // Update with your actual URL
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-4 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-950/10 transition-all duration-300 group"
-                >
-                  <div className="flex items-center gap-3">
-                    <LinkedinIcon className="h-5 w-5 text-zinc-400 group-hover:text-blue-400 transition-colors" />
-                    <span className="text-sm font-medium tracking-wide">LinkedIn Profile</span>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-zinc-600 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
-                </a>
+            <div className="flex items-center gap-4">
+              
+              {/* LinkedIn Icon Button */}
+              <a
+                href="https://linkedin.com" // Update with your actual URL
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
+                aria-label="LinkedIn Profile"
+              >
+                <LinkedinIcon className="h-6 w-6 transition-colors duration-300" />
+              </a>
 
-                {/* Secure Text Obfuscation for Direct Copy */}
-                <a
-                  href="mailto:hello@jfunki.com" // Switch to mailto link
-                  className="flex items-center justify-between p-4 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 hover:bg-emerald-950/10 transition-all duration-300 group"
-                >
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5 text-zinc-400 group-hover:text-emerald-400 transition-colors" />
-                    {/* Humans read this fine, simple bots struggle to pick up raw regex hooks */}
-                    <span className="text-sm font-medium tracking-wide">hello [at] jfunki [dot] com</span>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-zinc-600 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
-                </a>
-              </div>
+              {/* Email Icon Button */}
+              <a
+                href="mailto:hello@jfunki.com"
+                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
+                aria-label="Send Email"
+              >
+                <Mail className="h-6 w-6 transition-colors duration-300" />
+              </a>
+
+            </div>
 
               {/* SECTION SEPARATOR */}
               <div className="relative flex py-2 items-center">
@@ -130,9 +169,62 @@ export default function ContactSlider({ isOpen, onClose }: ContactDrawerProps) {
               </div>
 
               {/* PLACEHOLDER FORM CONTAINER (Where React Hook Form will live) */}
-              <div className="p-4 border border-dashed border-zinc-800 rounded-xl bg-zinc-900/40 text-center text-zinc-500 text-xs font-mono py-12">
-                [ REACT HOOK FORM COMING SOON ]
-              </div>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                
+                {/* NAME FIELD */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Name</label>
+                    <input
+                        type="text"
+                        {...register("name", { required: "Name is required" })}
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm"
+                    />
+                    {errors.name && (
+                        <span className="text-xs font-mono text-red-400 mt-1">{errors.name.message}</span>
+                    )}
+                </div>
+
+                {/* EMAIL FIELD */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Email</label>
+                    <input
+                        type="email"
+                        {...register("email", { 
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Invalid email address"
+                            }
+                        })}
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm"
+                    />
+                    {errors.email && (
+                        <span className="text-xs font-mono text-red-400 mt-1">{errors.email.message}</span>
+                    )}
+                </div>
+
+                {/* MESSAGE FIELD */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Message</label>
+                    <textarea
+                        rows={5}
+                        {...register("message", { required: "Please write a short message" })}
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm resize-none"
+                    />
+                    {errors.message && (
+                        <span className="text-xs font-mono text-red-400 mt-1">{errors.message.message}</span>
+                    )}
+                </div>
+
+                {/* SUBMIT BUTTON */}
+                <button
+                    type="submit"
+                    className="w-full cursor-pointer bg-white text-black font-mono uppercase font-bold text-sm tracking-widest p-4 rounded-lg hover:bg-zinc-200 transition-colors pt-3"
+                >
+                    Send Message
+                </button>
+
+            </form>
 
             </div>
 

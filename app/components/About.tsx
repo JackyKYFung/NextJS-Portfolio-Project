@@ -10,9 +10,10 @@ interface AboutProps {
     pageData: any;
     updates: any[];
     experiences: any[];
+    upcomingProjects: string;
 }
 
-export function About({ pageData, updates, experiences }: AboutProps) {
+export function About({ pageData, updates, experiences, upcomingProjects }: AboutProps) {
     const acf = pageData?.acf;
 
     return (
@@ -61,7 +62,7 @@ export function About({ pageData, updates, experiences }: AboutProps) {
 
                     {/* We wrap it in a div that handles the sticky behavior */}
                     <div className="lg:sticky lg:top-24">
-                        <OrbitalGrid />
+                        <OrbitalGrid upcomingProjects={upcomingProjects} />
                     </div>
                     
                 </div>

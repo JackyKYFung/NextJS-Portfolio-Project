@@ -87,24 +87,29 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
     <div className="w-full flex flex-col p-6 rounded-3xl bg-zinc-950/10 border-[2px] border-white backdrop-blur-sm select-none overflow-hidden">
       <div className="relative w-full h-[280px] lg:h-[300px] flex items-center justify-center group/sandbox">
 
+        {/* 1. MOVED BACKDROP CLICK LAYER TO THE TOP (Acts as the base layer) */}
+        <div className="absolute inset-0 z-10 pointer-events-auto" onClick={() => setActiveProject(null)} />
+
         {/* THE SINGLE GEOMETRIC TRACK RINGS */}
-        <div className="absolute inset-0 flex items-center justify-center p-4 opacity-10 group-hover/sandbox:opacity-100 transition-opacity duration-700 pointer-events-none w-[150px] h-[150px] mx-auto my-auto md:w-auto md:h-[85%] md:aspect-square">
+        <div className="absolute inset-0 flex items-center justify-center p-4 opacity-10 group-hover/sandbox:opacity-100 transition-opacity duration-700 pointer-events-none w-[250px] h-[250px] mx-auto my-auto md:w-auto md:aspect-square z-20">
           <div className="absolute inset-0 rounded-full" style={{ border: "2px solid rgba(255, 255, 255, 0.7)" }} />
         </div>
 
         {/* THE DYNAMIC CENTRAL DASHBOARD HUD */}
         <div className="relative z-40 flex items-center justify-center pointer-events-auto">
-          <div className="absolute w-28 md:w-40 aspect-square rounded-full bg-zinc-950 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white" />
-          <div className="relative w-28 md:w-40 aspect-square rounded-full flex items-center justify-center p-4 md:p-6 text-center overflow-hidden">
+          <div className="absolute w-40 aspect-square rounded-full bg-zinc-950 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white" />
+          <div className="relative w-40 aspect-square rounded-full flex items-center justify-center p-4 md:p-6 text-center overflow-hidden">
             <AnimatePresence mode="wait">
               {!activeProject ? (
                 <motion.div key="default-heading" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.2 }} className="flex items-center justify-center px-1">
-                  <h1 className="font-bold font-mono text-xs sm:text-sm md:text-base text-white uppercase tracking-wider leading-snug">
+                  <h1 className="font-bold font-mono text-md sm:text-md md:text-base text-white uppercase tracking-wider leading-snug">
                     What's cooking
                   </h1>
                 </motion.div>
               ) : (
-                <motion.div key={activeProject} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15, ease: "easeOut" }} className="text-xs md:text-sm font-mono font-bold text-white uppercase tracking-wider leading-snug px-1">
+                <motion.div 
+                    key={activeProject} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15, ease: "easeOut" }} 
+                    className="text-md md:text-sm font-mono font-bold text-white uppercase tracking-wider leading-snug px-1">
                   {currentActiveData?.name}
                 </motion.div>
               )}
@@ -112,9 +117,9 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
           </div>
         </div>
 
-        {/* ROTATION CONSTELLATION LAYER */}
+        {/* ROTATION CONSTELLATION LAYER - BUMPED TO Z-40 */}
         <motion.div
-          className="absolute w-[150px] h-[150px] md:w-auto md:h-[85%] md:aspect-square pointer-events-none z-30"
+          className="absolute w-[250px] h-[250px] md:w-auto md:aspect-square pointer-events-none z-40"
           animate={{ rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         >
@@ -132,7 +137,7 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
                   <button
                     type="button"
                     aria-label={project.name}
-                    className="p-3 outline-none select-none bg-transparent border-0 focus:outline-none active:scale-95 transition-transform"
+                    className="p-3 outline-none select-none bg-transparent border-0 focus:outline-none active:scale-95 transition-transform cursor-pointer"
                     onMouseEnter={() => setActiveProject(project.id)}
                     onMouseLeave={() => setActiveProject(null)}
                     onClick={(e) => {
@@ -148,7 +153,6 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
           })}
         </motion.div>
 
-        <div className="absolute inset-0 z-10 pointer-events-auto" onClick={() => setActiveProject(null)} />
       </div>
     </div>
   );

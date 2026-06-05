@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail } from "lucide-react";
+import { X, Mail, SendHorizonal, Donut } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface ContactSliderProps {
@@ -93,7 +93,12 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
 {/* STICKY TOP ESCAPE HATCH (Exit-Only Rotation Mechanics) */}
 <div className="flex items-center justify-between pb-6 border-b border-zinc-800">
   <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
-    Connect Hub
+      <div className="flex inline-flex items-center text-sm font-bold font-mono">
+
+          <span className="relative pb-1">C</span>
+          <Donut className="w-[1em] h-[1em] stroke-[2.5] text-current ml-[-1] mr-[2] mb-[2] translate-y-[-1px]" />
+          <span className="relative pb-1">nnect with Me</span>
+      </div>
   </h2>
   
   <button
@@ -127,19 +132,19 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
               {/* INTRO TEXT */}
               <div>
                 <h3 className="text-2xl font-bold font-mono tracking-tight mb-2">
-                  Let's build something epic.
+                  Behind the code.
                 </h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">
-                  Whether you have an upcoming project blueprint, a recruitment pipeline opening, or just want to chat full-stack architecture—drop a line.
+                  This website serves as a living resume and architectural proof of concept for my development work. I'm currently looking to join an innovative engineering team.
+                </p>
+                <p className="text-white font-bold text-sm leading-relaxed mt-3">
+                    Feel free to reach out regarding pipeline openings or to review my technical process!
                 </p>
               </div>
 
-              {/* DIRECT CONNECT LINKS (Built-in anti-spam ecosystem) */}
-            <div className="flex items-center gap-4">
-              
-              {/* LinkedIn Icon Button */}
+            <div className="flex items-center gap-4">       
               <a
-                href="https://linkedin.com" // Update with your actual URL
+                href="https://www.linkedin.com/in/jacky-fung/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
@@ -148,9 +153,8 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
                 <LinkedinIcon className="h-6 w-6 transition-colors duration-300" />
               </a>
 
-              {/* Email Icon Button */}
               <a
-                href="mailto:hello@jfunki.com"
+                href="mailto:j12funki@gmail.com"
                 className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
                 aria-label="Send Email"
               >
@@ -221,7 +225,10 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
                     type="submit"
                     className="w-full cursor-pointer bg-white text-black font-mono uppercase font-bold text-sm tracking-widest p-4 rounded-lg hover:bg-zinc-200 transition-colors pt-3"
                 >
-                    Send Message
+      <div className="flex inline-flex items-center text-sm font-bold font-mono">
+          <span className="relative">Send Message</span>
+          <SendHorizonal className="w-[0.8em] h-[0.8em] stroke-[2.5] text-current mx-[2px] mb-[-2] translate-y-[-1px]" />
+      </div>
                 </button>
 
             </form>

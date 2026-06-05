@@ -98,7 +98,7 @@ return (
                         <span 
                             key={`${item.name}-${index}`}
                             data-cat={item.category}
-                            className="inline-block pr-[3px] text-lg md:text-md lg:text-sm rounded cursor-default transition-all duration-300 font-bold"
+                            className="inline-block pr-[3px] text-sm md:text-lg lg:text-sm rounded cursor-default transition-all duration-300 font-bold"
                         >
                             {item.name}
                         </span>

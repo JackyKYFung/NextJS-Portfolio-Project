@@ -4,7 +4,7 @@ import { Skills } from "@/app/components/Skills";
 import PhotoGallery from "@/app/components/PhotoGallery";
 import OrbitalGrid from "./OrbitalGrid";
 import { Experience } from "./Experience";
-import { Blocks } from "lucide-react";
+import { Blocks, Package , Compass} from "lucide-react";
 
 interface AboutProps {
     pageData: any;
@@ -29,7 +29,16 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
                     <div className="bio-content max-w-none pt-5 mb-5">
                         {pageData?.content?.rendered && (
                             <>
-                                <h1 className="font-bold font-mono text-3xl text-white">Life Inside the Code</h1>
+                                <div className="flex inline-flex items-center text-3xl font-bold font-mono">
+
+                                <span className="relative pb-1">Life in the C</span>
+                                
+        
+                                <Package className="w-[0.7em] h-[0.7em] stroke-[2.5] text-current mx-[2px] mb-[-3] translate-y-[-1px]" />
+                                
+    
+                                <span className="relative pb-1">de</span>
+                                </div>
                                 <div
                                     className="mt-5 text-white" 
                                     dangerouslySetInnerHTML={{ __html: pageData.content.rendered }} 
@@ -71,7 +80,16 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
 
             {/* SECOND ROW: Photo Gallery (Full Width - 12 Columns Anchor) */}
             <div className="w-full border-t border-zinc-800/60 pt-12">
-                <h2 className="text-2xl font-bold font-mono mb-6 text-white">Life Beyond the Code</h2>
+                <div className="flex inline-flex items-center text-3xl font-bold font-mono mb-6">
+    
+                    <span className="relative pb-1">Life b</span>
+                    
+            
+                    <Compass className="w-[0.7em] h-[0.7em] stroke-[2.5] text-current mx-[2px] mb-[-3] translate-y-[-1px]" />
+                    
+        
+                    <span className="relative pb-1">yond the Code</span>
+                </div>
                 <PhotoGallery wpData={updates}/>
             </div>
             

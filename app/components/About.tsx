@@ -79,7 +79,7 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
             </div>
 
             {/* SECOND ROW: Photo Gallery (Full Width - 12 Columns Anchor) */}
-            <div className="w-full border-t border-zinc-800/60 pt-12">
+            <div className="w-full border-t border-zinc-800/60 pt-12 pb-12">
                 <div className="flex inline-flex items-center text-3xl font-bold font-mono mb-6">
     
                     <span className="relative pb-1">Life b</span>

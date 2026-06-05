@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, SendHorizonal, Donut } from "lucide-react";
+import { X, Mail, SendHorizonal, Donut, CheckCircle2 } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { sendContactEmail } from "@/actions";
 
 interface ContactSliderProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface ContactInputs {
   name: string;
   email: string;
   message: string;
+  honeypot: string;
 }
 
 export function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
@@ -37,6 +39,16 @@ export function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) 
 
 export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
 
+  const [isSuccessfullySent, setIsSuccessfullySent] = useState(false);
+
+  // Reset the success state back to the form structure ONLY after the drawer completely slides out of view
+  useEffect(() => {
+    if (!isOpen) {
+      const timer = setTimeout(() => setIsSuccessfullySent(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   // Locks scroll on main page when slider is open 
   useEffect(() => {
     if (isOpen) {
@@ -53,23 +65,37 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
   const { 
     register, 
     handleSubmit, 
-    formState: { errors }, 
+    formState: { errors, isSubmitting }, 
     reset
   } = useForm<ContactInputs>();
 
   // form validation success
-  const onSubmit: SubmitHandler<ContactInputs> = (data) => {
+  const onSubmit: SubmitHandler<ContactInputs> = async (data) => {
     console.log("Form submission successful!");
     
-    reset();
-    onClose();
-  }
+    try {
+          // Dispatch the payload straight into your server action container
+          const result = await sendContactEmail(data);
+          
+          if (result.success) {
+            console.log("Full-stack transactional communication dispatched seamlessly!");
+            setIsSuccessfullySent(true); // Switch to success state screen
+            reset(); // Wipe inputs behind the scenes
+          } else {
+            // Fallback catch if fields drop or Resend fails
+            alert(result.error || "The mail gateway timed out. Please try again.");
+          }
+        } catch (error) {
+          console.error("Critical client form transmission exception thrown:", error);
+          alert("A system pipeline error occurred. Check network connection status.");
+        }
+      };
 
-  return (
-    <AnimatePresence>
+    return (
+<AnimatePresence>
       {isOpen && (
         <>
-          {/* 1. BACKDROP: Dims out the main workspace on desktop, click to close */}
+          {/* BACKDROP */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -78,168 +104,191 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
             className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm pointer-events-auto"
           />
 
-{/* 2. DRAWER CONTAINER */}
-<motion.div
-  initial={{ x: "100%" }}
-  animate={{ x: 0 }}
-  exit={{ 
-    x: "100%",
-    transition: { type: "tween", ease: "easeInOut", duration: 0.3 } // <-- Handles exit timing cleanly
-  }}
-  transition={{ type: "spring", damping: 30, stiffness: 260 }} // <-- Stable spring config for entering
-  className="fixed right-0 top-0 z-50 h-full w-full md:max-w-md bg-zinc-950 border-l border-zinc-800 text-white p-6 md:p-8 flex flex-col pointer-events-auto shadow-2xl"
->
-  
-{/* STICKY TOP ESCAPE HATCH (Exit-Only Rotation Mechanics) */}
-<div className="flex items-center justify-between pb-6 border-b border-zinc-800">
-  <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
-      <div className="flex inline-flex items-center text-sm font-bold font-mono">
-
-          <span className="relative pb-1">C</span>
-          <Donut className="w-[1em] h-[1em] stroke-[2.5] text-current ml-[-1] mr-[2] mb-[2] translate-y-[-1px]" />
-          <span className="relative pb-1">nnect with Me</span>
-      </div>
-  </h2>
-  
-  <button
-    onClick={onClose}
-    className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-emerald-400 outline-none -mr-1"
-    aria-label="Close panel"
-  >
-    <motion.div
-      // 1. Force it to start at -180 (pointing left) immediately on mount
-      initial={{ rotate: -180 }} 
-      // 2. Sit at -180 while open; only transition to 0 (pointing right) on close
-      animate={{ 
-        rotate: isOpen ? -180 : 0     
-      }}
-      transition={{ 
-        type: "tween", 
-        ease: "easeInOut", 
-        duration: 0.35,
-        delay: 0 // Fires instantly on click to maximize the visual feedback
-      }}
-      className="flex items-center justify-center"
-    >
-      <X className="h-6 w-6" />
-    </motion.div>
-  </button>
-</div>
-
-            {/* SCROLLABLE BODY LAYER (overflow-y-auto enables safe mobile keyboard handling) */}
-            <div className="flex-1 overflow-y-auto py-6 space-y-8 pr-1 scrollbar-thin">
+          {/* DRAWER CONTAINER */}
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ 
+              x: "100%",
+              transition: { type: "tween", ease: "easeInOut", duration: 0.3 } 
+            }}
+            transition={{ type: "spring", damping: 30, stiffness: 260 }} 
+            className="fixed right-0 top-0 z-50 h-full w-full md:max-w-md bg-zinc-950 border-l border-zinc-800 text-white p-6 md:p-8 flex flex-col pointer-events-auto shadow-2xl"
+          >
+            
+            {/* TOP ESCAPE HATCH */}
+            <div className="flex items-center justify-between pb-6 border-b border-zinc-800 mb-6">
+              <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
+                <div className="flex inline-flex items-center text-sm font-bold font-mono">
+                  <span className="relative pb-1">C</span>
+                  <Donut className="w-[1em] h-[1em] stroke-[2.5] text-current ml-[-1] mr-[2] mb-[2] translate-y-[-1px]" />
+                  <span className="relative pb-1">nnect with Me</span>
+                </div>
+              </h2>
               
-              {/* INTRO TEXT */}
-              <div>
-                <h3 className="text-2xl font-bold font-mono tracking-tight mb-2">
-                  Behind the code.
-                </h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  This website serves as a living resume and architectural proof of concept for my development work. I'm currently looking to join an innovative engineering team.
-                </p>
-                <p className="text-white font-bold text-sm leading-relaxed mt-3">
-                    Feel free to reach out regarding pipeline openings or to review my technical process!
-                </p>
-              </div>
-
-            <div className="flex items-center gap-4">       
-              <a
-                href="https://www.linkedin.com/in/jacky-fung/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
-                aria-label="LinkedIn Profile"
+              <button
+                onClick={onClose}
+                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-emerald-400 outline-none -mr-1"
+                aria-label="Close panel"
               >
-                <LinkedinIcon className="h-6 w-6 transition-colors duration-300" />
-              </a>
+                <X className="h-6 w-6" />
+              </button>
+            </div>
 
-              <a
-                href="mailto:j12funki@gmail.com"
-                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
-                aria-label="Send Email"
-              >
-                <Mail className="h-6 w-6 transition-colors duration-300" />
-              </a>
+            {/* SCROLLABLE INNER PANEL AREA */}
+            <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin flex flex-col justify-between">
+              
+              <AnimatePresence mode="wait">
+                {!isSuccessfullySent ? (
+                  
+                  // STATE A: THE ACTIVE ENTRY FORM BLOCK
+                  <motion.div
+                    key="contact-form"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-8"
+                  >
+                    <div>
+                      <h3 className="text-2xl font-bold font-mono tracking-tight mb-2">
+                        Behind the code.
+                      </h3>
+                      <p className="text-zinc-400 text-sm leading-relaxed">
+                        This website serves as a living resume and architectural proof of concept for my development work. I'm currently looking to join an innovative engineering team.
+                      </p>
+                      <p className="text-white font-bold text-sm leading-relaxed mt-3">
+                          Feel free to reach out regarding pipeline openings or to review my technical process!
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-4">       
+                      <a
+                        href="https://www.linkedin.com/in/jacky-fung/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
+                        aria-label="LinkedIn Profile"
+                      >
+                        <LinkedinIcon className="h-6 w-6 transition-colors duration-300" />
+                      </a>
+
+                      <a
+                        href="mailto:j12funki@gmail.com"
+                        className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
+                        aria-label="Send Email"
+                      >
+                        <Mail className="h-6 w-6 transition-colors duration-300" />
+                      </a>
+                    </div>
+
+                    <div className="relative flex py-2 items-center">
+                      <div className="flex-grow border-t border-zinc-800"></div>
+                      <span className="flex-shrink mx-4 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+                        Or leave a message
+                      </span>
+                      <div className="flex-grow border-t border-zinc-800"></div>
+                    </div>
+
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                      <div className="hidden" aria-hidden="true">
+                        <input type="text" autoComplete="off" tabIndex={-1} {...register("honeypot")} />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                          <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Name</label>
+                          <input
+                              type="text"
+                              disabled={isSubmitting}
+                              {...register("name", { required: "Name is required" })}
+                              className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm disabled:opacity-50"
+                          />
+                          {errors.name && <span className="text-xs font-mono text-red-400 mt-1">{errors.name.message}</span>}
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                          <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Email</label>
+                          <input
+                              type="email"
+                              disabled={isSubmitting}
+                              {...register("email", { 
+                                  required: "Email is required",
+                                  pattern: {
+                                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                      message: "Invalid email address"
+                                  }
+                              })}
+                              className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm disabled:opacity-50"
+                          />
+                          {errors.email && <span className="text-xs font-mono text-red-400 mt-1">{errors.email.message}</span>}
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                          <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Message</label>
+                          <textarea
+                              rows={5}
+                              disabled={isSubmitting}
+                              {...register("message", { required: "Please write a short message" })}
+                              className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm resize-none disabled:opacity-50"
+                          />
+                          {errors.message && <span className="text-xs font-mono text-red-400 mt-1">{errors.message.message}</span>}
+                      </div>
+
+                      <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full cursor-pointer bg-white text-black font-mono uppercase font-bold text-sm tracking-widest p-4 rounded-lg hover:bg-zinc-200 transition-all pt-3 disabled:bg-zinc-700 disabled:text-zinc-400 disabled:cursor-not-allowed"
+                      >
+                        <div className="flex inline-flex items-center justify-center text-sm font-bold font-mono w-full">
+                            <span>{isSubmitting ? "Transmitting..." : "Send Message"}</span>
+                            {!isSubmitting && <SendHorizonal className="w-[0.8em] h-[0.8em] stroke-[2.5] ml-[4px]" />}
+                        </div>
+                      </button>
+                    </form>
+                  </motion.div>
+                ) : (
+                  
+                  // STATE B: THE SUCCESS CONFIRMATION PANEL
+                  <motion.div
+                    key="success-screen"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12 my-auto"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
+                    >
+                      <CheckCircle2 className="h-16 w-16 text-emerald-400 stroke-[1.5]" />
+                    </motion.div>
+                    
+                    <h3 className="text-2xl font-bold font-mono tracking-tight mt-4">
+                      Message Dispatched!
+                    </h3>
+                    
+                    <p className="text-zinc-400 text-sm max-w-xs leading-relaxed font-sans">
+                      Your form data successfully cleared the network pipeline. I'll review your details and follow up shortly.
+                    </p>
+
+                    <button
+                      onClick={onClose}
+                      className="mt-8 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-lg transition-all cursor-pointer outline-none focus:border-zinc-500"
+                    >
+                      Close Portal
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
             </div>
 
-              {/* SECTION SEPARATOR */}
-              <div className="relative flex py-2 items-center">
-                <div className="flex-grow border-t border-zinc-800"></div>
-                <span className="flex-shrink mx-4 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
-                  Or leave a message
-                </span>
-                <div className="flex-grow border-t border-zinc-800"></div>
-              </div>
-
-              {/* PLACEHOLDER FORM CONTAINER (Where React Hook Form will live) */}
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                
-                {/* NAME FIELD */}
-                <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Name</label>
-                    <input
-                        type="text"
-                        {...register("name", { required: "Name is required" })}
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm"
-                    />
-                    {errors.name && (
-                        <span className="text-xs font-mono text-red-400 mt-1">{errors.name.message}</span>
-                    )}
-                </div>
-
-                {/* EMAIL FIELD */}
-                <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Email</label>
-                    <input
-                        type="email"
-                        {...register("email", { 
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "Invalid email address"
-                            }
-                        })}
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm"
-                    />
-                    {errors.email && (
-                        <span className="text-xs font-mono text-red-400 mt-1">{errors.email.message}</span>
-                    )}
-                </div>
-
-                {/* MESSAGE FIELD */}
-                <div className="flex flex-col gap-2">
-                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Message</label>
-                    <textarea
-                        rows={5}
-                        {...register("message", { required: "Please write a short message" })}
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors text-sm resize-none"
-                    />
-                    {errors.message && (
-                        <span className="text-xs font-mono text-red-400 mt-1">{errors.message.message}</span>
-                    )}
-                </div>
-
-                {/* SUBMIT BUTTON */}
-                <button
-                    type="submit"
-                    className="w-full cursor-pointer bg-white text-black font-mono uppercase font-bold text-sm tracking-widest p-4 rounded-lg hover:bg-zinc-200 transition-colors pt-3"
-                >
-      <div className="flex inline-flex items-center text-sm font-bold font-mono">
-          <span className="relative">Send Message</span>
-          <SendHorizonal className="w-[0.8em] h-[0.8em] stroke-[2.5] text-current mx-[2px] mb-[-2] translate-y-[-1px]" />
-      </div>
-                </button>
-
-            </form>
-
-            </div>
-
-            {/* SAFE EXTRA BOTTOM PADDING FOR MOBILE DEVICE VIEWPORT NAVIGATION SHEETS */}
+            {/* SAFE MOBILE BOTTOM SPACING */}
             <div className="h-6 md:h-0 w-full bg-transparent" />
           </motion.div>
         </>
       )}
     </AnimatePresence>
-  );
+    );
 }

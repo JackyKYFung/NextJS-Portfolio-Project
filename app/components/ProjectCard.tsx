@@ -16,16 +16,23 @@ export function ProjectCard({ project }: { project: any }) {
 
     const backUpIds = project.tech_stack || [];
 
+console.log(`--- DIAGNOSING PROJECT: ${project?.title?.rendered || 'No Title'} ---`);
+console.log("1. Does ACF Exist?:", !!project?.acf);
+console.log("2. What is project_thumbnail value?:", project?.acf?.project_thumbnail);
+console.log("3. Does _embedded Exist?:", !!project?._embedded);
+console.log("4. Does wp:featuredmedia Exist?:", !!project?._embedded?.['wp:featuredmedia']);
+
     return (
         <Link href={`/projects/${project.slug}`} className="block w-full h-full group">
             <article className="relative w-full aspect-square rounded-2xl border border-white border-[2px] bg-zinc-500 overflow-hidden transition-all duration-500 hover:border-emerald-500 shadow-xl">
                 
                 {/* 1. Project Thumbnail Background */}
                 <div className="absolute inset-0 w-full h-full z-0">
-                    <img 
-                        src={project.acf?.project_thumbnail?.url} 
-                        className="w-full h-full object-cover opacity-100 transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-10 group-hover:blur-[2px]"
-                    />
+<img 
+    src={project.acf?.project_thumbnail?.url} 
+    className="w-full h-full object-cover opacity-100 transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-10 group-hover:blur-[2px]"
+    alt={project.title?.rendered}
+/>
                     {/* Ambient Overlay to darken the image slightly on rest, and deeply on hover */}
                     <div className="absolute inset-0 bg-black/5 group-hover:bg-black/80 transition-colors duration-500" />
                 </div>

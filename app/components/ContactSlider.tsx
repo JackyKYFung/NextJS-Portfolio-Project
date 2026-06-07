@@ -9,6 +9,10 @@ import { sendContactEmail } from "@/actions";
 interface ContactSliderProps {
   isOpen: boolean;
   onClose: () => void;
+  contactData: {
+    contact_email: string;
+    linkedin_url: string;
+  };
 }
 
 interface ContactInputs {
@@ -37,7 +41,7 @@ export function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) 
   );
 }
 
-export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
+export default function ContactSlider({ isOpen, onClose, contactData }: ContactSliderProps) {
 
   const [isSuccessfullySent, setIsSuccessfullySent] = useState(false);
 
@@ -173,23 +177,23 @@ export default function ContactSlider({ isOpen, onClose }: ContactSliderProps) {
                     </div>
 
                     <div className="flex items-center gap-4">       
-                      <a
-                        href="https://www.linkedin.com/in/jacky-fung/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
-                        aria-label="LinkedIn Profile"
-                      >
-                        <LinkedinIcon className="h-6 w-6 transition-colors duration-300" />
-                      </a>
+                    <a
+                      href={contactData.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
+                      aria-label="LinkedIn Profile"
+                    >
+                      <LinkedinIcon className="h-6 w-6 transition-colors duration-300" />
+                    </a>
 
-                      <a
-                        href="mailto:j12funki@gmail.com"
-                        className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
-                        aria-label="Send Email"
-                      >
-                        <Mail className="h-6 w-6 transition-colors duration-300" />
-                      </a>
+                    <a
+                      href={`mailto:${contactData.contact_email}`}
+                      className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white"
+                      aria-label="Send Email"
+                    >
+                      <Mail className="h-6 w-6 transition-colors duration-300" />
+                    </a>
                     </div>
 
                     <div className="relative flex py-2 items-center">

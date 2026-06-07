@@ -4,12 +4,11 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Atom, FingerprintPattern, Ghost, HeartHandshake, Hamburger, X } from "lucide-react";
-import ContactSlider from "@/app/components/ContactSlider";
 import { motion, AnimatePresence } from 'framer-motion';
+import { triggerContactSlider } from "@/app/components/RootClientWrapper";
 
 export function Header() {
     const pathname = usePathname();
-    const [isContactOpen, setIsContactOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const getCurrentPageIndicator = () => {
@@ -35,17 +34,16 @@ export function Header() {
         }
     };
 
-    // Shared navigation data configuration mapping structure 
+    // 2. UPDATED MAPPING: Buttons now dispatch the custom global framework event handler directly
     const navItems = [
         { href: '/about', labelLeft: 'AB', labelRight: 'UT', icon: FingerprintPattern, type: 'link' },
         { href: '/projects', labelLeft: 'PR', labelRight: 'JECTS', icon: Atom, type: 'link' },
-        { id: 'contact', labelLeft: 'C', labelRight: 'NTACT', icon: HeartHandshake, type: 'button', action: () => setIsContactOpen(true) },
-        { id: 'resume', labelLeft: 'MY RESU', labelRight: 'E', icon: Ghost, type: 'button', action: () => setIsContactOpen(true) }
+        { id: 'contact', labelLeft: 'C', labelRight: 'NTACT', icon: HeartHandshake, type: 'button', action: triggerContactSlider },
+        { id: 'resume', labelLeft: 'MY RESU', labelRight: 'E', icon: Ghost, type: 'button', action: triggerContactSlider }
     ];
 
-
     return (
-<header className="relative w-full mb-[30px] z-50">
+        <header className="relative w-full mb-[30px] z-50">
             {/* CORE GRID DESKTOP + MOBILE NAVIGATION BAR CONTAINER */}
             <div className="flex justify-between items-center w-full h-12">
                 
@@ -64,7 +62,8 @@ export function Header() {
                     <ul className="flex gap-7 items-center">
                         {navItems.map((item, index) => {
                             const IconComponent = item.icon;
-                            const isActive = pathname === item.href || (item.id === 'contact' && isContactOpen);
+                            // Cleaned up active conditions to strip internal state tracking
+                            const isActive = pathname === item.href;
                             
                             if (item.type === 'link' && item.href) {
                                 return (
@@ -83,7 +82,7 @@ export function Header() {
                             } else {
                                 return (
                                     <li key={index}>
-                                        <button onClick={item.action} className={`relative transition-all duration-200 flex items-center group p-3 pt-0 cursor-pointer text-sm ${isActive ? "text-white font-black" : "opacity-80 hover:opacity-100"}`}>
+                                        <button onClick={item.action} className={`relative transition-all duration-200 flex items-center group p-3 pt-0 cursor-pointer text-sm opacity-80 hover:opacity-100`}>
                                             <span className={`grid transition-all duration-300 ease-out ${isActive ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"}`}>
                                                 <span className="overflow-hidden whitespace-nowrap">{item.labelLeft}</span>
                                             </span>
@@ -109,7 +108,7 @@ export function Header() {
                         {isMobileMenuOpen ? (
                             <X className="w-7 h-7 stroke-[2]" />
                         ) : (
-                            <Hamburger className="w-7 h-7 stroke-[2]" />
+                            <X className="w-7 h-7 stroke-[2] rotate-45" /> // Replaced broken Lucide Hamburger icon reference with an rotated X
                         )}
                     </button>
                 </div>
@@ -182,12 +181,6 @@ export function Header() {
                     </motion.div>
                 )}
             </AnimatePresence>
-
-            {/* SIDE PANEL PERSISTENT CONTEXT HOOK */}
-            <ContactSlider 
-                isOpen={isContactOpen} 
-                onClose={() => setIsContactOpen(false)} 
-            />                        
         </header>
     );
 }

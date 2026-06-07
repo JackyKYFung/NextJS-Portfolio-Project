@@ -8,81 +8,79 @@ export function Experience({ experiences }: { experiences: any[] }) {
 
     const toggleAccordion = (id: number) => {
         setActiveId(activeId === id ? null : id);
-        //console.log (activeId);
     }
 
     return (
-
-     
-    <section className="text-left mt-5 animate-fade-in border-[2px]rounded-3xl">
-        {Array.isArray(experiences) && experiences.map((experience: any) => {
+        /* 💡 Added 'group' class to the section parent. 
+           This acts as the trigger boundary when the cursor enters or exits the section. */
+        <section className="group text-left mt-5 animate-fade-in border-2 border-transparent rounded-3xl">
+            {Array.isArray(experiences) && experiences.map((experience: any) => {
 
                 // Get job details string from ACF 
-        const detailsString = experience.acf?.job_details || "";
-        //console.log("details string", detailsString);
-        //Turn retrieved job details string into an array
-        const detailsArray = detailsString.split('|')
-            .filter((item: string) => item.trim() !== "") // clean up empty items
-            .map((item: string) => item.trim());
-        //console.log("details array", detailsArray);
-        const isOpen = activeId === experience.id;
+                const detailsString = experience.acf?.job_details || "";
+                
+                //Turn retrieved job details string into an array
+                const detailsArray = detailsString.split('|')
+                    .filter((item: string) => item.trim() !== "") // clean up empty items
+                    .map((item: string) => item.trim());
+                
+                const isOpen = activeId === experience.id;
 
-        return (
-                // The accordion heading
-                <div 
-                    key={experience.id} 
-                    className={`experience-tab overflow-hidden transition-all duration-300 rounded-xl hover:bg-zinc-500/20 border-2             
-                        ${isOpen 
-                            ? "border-white shadow-md" : "border-black/0"                     
-                        }
-                    `}>
+                return (
+                    /* 💡 Updated Accordion Tab Styles:
+                       - Default: px-0 (no indentation, flush with page alignment).
+                       - Section Hovered: group-hover:px-5 (seamlessly pushes inward).
+                       - Active Open State: Keep px-5 applied permanently so the active container stays structured. */
                     <div 
-                        className="experience-title py-5 px-5 cursor-pointer w-full text-left"
-                        onClick={() => toggleAccordion(experience.id)}
+                        key={experience.id} 
+                        className={`experience-tab overflow-hidden transition-all duration-350 ease-out rounded-xl hover:bg-zinc-500/20 border-2             
+                            ${isOpen 
+                                ? "border-white shadow-md px-5" 
+                                : "border-black/0 px-0 group-hover:px-5"                     
+                            }
+                        `}>
+                        <div 
+                            className="experience-title py-5 cursor-pointer w-full text-left"
+                            onClick={() => toggleAccordion(experience.id)}
                         >
+                            <div className="summary-content flex flex-wrap w-full">
+                                <div className="summary-row flex flex-row justify-between items-baseline w-full">
+                                    <span className="job-title font-semibold max-w-[150px]">
+                                        {experience.acf?.job_title}
+                                    </span>
+                                    <span className="date text-xs opacity-70 whitespace-nowrap">
+                                        {experience.acf?.time}
+                                    </span>
+                                </div>
 
-                        <div className="summary-content flex flex-wrap w-full">
-                            <div className="summary-row flex flex-row justify-between items-baseline w-full">
-                            <span className="job-title font-semibold]">
-                                {experience.acf?.job_title}
-                            </span>
-                            <span className="date text-sm opacity-70 whitespace-nowrap">
-                                {experience.acf?.time}</span>
+                                <div className="company text-sm italic opacity-80 mt-1 text-left">
+                                    {experience.acf?.company}
+                                ]</div>
                             </div>
-
-                            <div className="company text-sm italic opacity-80 mt-1 text-left">
-                                {experience.acf?.company}
+                        </div>
+                        
+                        {/* the expandable part of the accordion */}
+                        <div 
+                            className={`grid transition-all duration-300 ease-in-out ${ isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0" } `}
+                        >
+                            <div className="overflow-hidden">        
+                                <ul className="pb-5 space-y-2 pt-0"
+                                    style={{
+                                        listStyle: "disc",
+                                        paddingLeft: "20px" // Slightly reduced for cleaner inner block indentation
+                                    }}>
+                                
+                                    {detailsArray.map((detail: string, index: number ) => (
+                                        <li key={`${experience.id}-${index}`}>
+                                            {detail}
+                                        </li> 
+                                    ))}
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    
-                    {/* the expandable part of the accordion */}
-                    
-                    <div 
-                        className={`grid transition-all duration-300 ease-in-out ${ isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0" } `}
-                        >
-                        <div className="overflow-hidden">        
-                            <ul className="p-5 space-y-2 pt-0"
-                                style={{
-                                    listStyle: "disc",
-                                    paddingLeft: "35px"
-
-                                }}>
-                            
-                                {detailsArray.map((detail: string, index: number ) => (
-                                    // string has no ID so use index
-                                <li key={`${experience.id}-${index}`}>
-                                        {detail}
-                                </li> 
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            
-        )
-        
-        })}
-    </section>
+                )
+            })}
+        </section>
     )
-    }
+}

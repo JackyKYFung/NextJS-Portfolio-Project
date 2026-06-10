@@ -45,7 +45,8 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
                         key={activePost.id} 
                         src={activePost.src} 
                         alt={activePost.alt} 
-                        fill 
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw" 
                         className="object-contain lg:object-cover animate-in fade-in blur-in duration-700"
                         priority 
                     />

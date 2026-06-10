@@ -6,11 +6,13 @@ import Link from 'next/link';
 import { Atom, FingerprintPattern, Ghost, HeartHandshake, Hamburger, X } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { triggerContactSlider } from "@/app/components/RootClientWrapper";
+import { isExternal } from 'util/types';
 
 export function Header() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+    // PAGE INDICATOR ON MOBILE
     const getCurrentPageIndicator = () => {
         switch (pathname) {
             case "/about":
@@ -39,7 +41,7 @@ export function Header() {
         { href: '/about', labelLeft: 'AB', labelRight: 'UT', icon: FingerprintPattern, type: 'link' },
         { href: '/projects', labelLeft: 'PR', labelRight: 'JECTS', icon: Atom, type: 'link' },
         { id: 'contact', labelLeft: 'C', labelRight: 'NTACT', icon: HeartHandshake, type: 'button', action: triggerContactSlider },
-        { id: 'resume', labelLeft: 'MY RESU', labelRight: 'E', icon: Ghost, type: 'button', action: triggerContactSlider }
+        { href: 'https://jfunki.com/wp-content/uploads/2026/06/Jacky-Fung-Resume-Web-Developer.pdf', labelLeft: 'MY RESU', labelRight: 'É', icon: Ghost, type: 'link', isExternal: true }
     ];
 
     return (
@@ -68,7 +70,11 @@ export function Header() {
                             if (item.type === 'link' && item.href) {
                                 return (
                                     <li key={index}>
-                                        <Link href={item.href} className={`relative transition-all duration-200 flex items-center group p-3 pt-0 text-sm ${isActive ? "text-white font-black" : "opacity-80 hover:opacity-100"}`}>
+                                        <Link 
+                                            href={item.href} 
+                                            target={item.isExternal ? "_blank" : undefined}
+                                            rel={item.isExternal ? "noopener noreferrer" : undefined}
+                                            className={`relative transition-all duration-200 flex items-center group p-3 pt-0 text-sm ${isActive ? "text-white font-black" : "opacity-80 hover:opacity-100"}`}>
                                             <span className={`grid transition-all duration-300 ease-out ${isActive ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"}`}>
                                                 <span className="overflow-hidden whitespace-nowrap">{item.labelLeft}</span>
                                             </span>
@@ -150,6 +156,8 @@ export function Header() {
                                                 <Link 
                                                     href={item.href}
                                                     onClick={() => setIsMobileMenuOpen(false)}
+                                                    rel={item.isExternal ? "noopener noreferrer" : undefined}
+                                                    target={item.isExternal ? "_blank" : undefined}
                                                     className={`flex items-center justify-center text-2xl font-bold font-mono py-3 border-b border-white/5 w-full ${isItemActive ? "text-white" : "text-zinc-400"}`}
                                                 >
                                                     <span>{item.labelLeft}</span>

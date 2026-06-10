@@ -60,9 +60,11 @@ export default function ProjectGallery({ project }: { project: any }) {
                     <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,0,0.03))] bg-[length:100%_4px,3px_100%] opacity-20 group-hover:opacity-0 transition-opacity" />
                 </div>
 
+                
                 <div className="grid grid-cols-2 gap-4 content-start">
                     
-                    <BentoItem className={`bg-zinc-900 rounded-3xl p-4 text-white flex flex-col justify-center transition-all duration-300 ${
+                    {/* TECH STACK BOX */}
+                    <BentoItem className={`bg-zinc-900 rounded-3xl p-4 text-white flex flex-col justify-center transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 ${
                         hasSnippet ? "col-span-1" : "col-span-2 h-[152px]" 
                     }`}>
                         <h4 className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Tech Stack</h4>
@@ -91,7 +93,7 @@ export default function ProjectGallery({ project }: { project: any }) {
 
                     {/* Lightbox Trigger */}
                     <BentoItem 
-                        className={`group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800 transition-all duration-300 ${
+                        className={`group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800 transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 ${
                             hasSnippet ? "col-span-1" : "col-span-2 h-[152px]"
                         }`}
                         onClick={() => setIsLightboxOpen(true)}

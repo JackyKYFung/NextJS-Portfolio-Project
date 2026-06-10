@@ -34,7 +34,7 @@ export default function Lightbox({ isOpen, onClose, src, alt }: { isOpen: boolea
             src={src}
             alt={alt}
             onClick={(e) => e.stopPropagation()} 
-            className="max-w-[90%] max-h-[90vh] rounded-2xl shadow-2xl object-contain cursor-default border border-white/10"
+            className="max-w-[90%] max-h-[90vh] rounded-2xl shadow-2xl object-contain cursor-default border border-[2px] border-white"
           />
         </motion.div>
       )}

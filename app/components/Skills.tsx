@@ -21,8 +21,6 @@ export function Skills({ acfData }: SkillsProps) {
 
     const [mounted, setMounted] = useState(false);
 
-    //console.log("=== RAW ACF DATA RECEIVED BY SKILLS COMPONENT ===", acfData);
-
     useEffect(() => {
         setMounted(true);
     }, []);

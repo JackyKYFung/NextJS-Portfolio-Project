@@ -63,7 +63,7 @@ export default function ProjectGallery({ project }: { project: any }) {
                 
                 <div className="grid grid-cols-2 gap-4 content-start">
                     
-                    {/* TECH STACK BOX */}
+                    {/* Tech stack box */}
                     <BentoItem className={`bg-zinc-900 rounded-3xl p-4 text-white flex flex-col justify-center transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 ${
                         hasSnippet ? "col-span-1" : "col-span-2 h-[152px]" 
                     }`}>

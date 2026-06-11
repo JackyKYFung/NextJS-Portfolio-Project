@@ -32,7 +32,7 @@ const handleType = () => {
                 setText(nextText);
 
                 if (nextText === fullText) {
-                    // WORD COMPLETE: Shift the background position smoothly
+                    // When word complete: Shift the background position smoothly
                     // Moving it by 25% or 33% shifts it to the next "color" in the gradient
                     setBgPos((prev) => prev + 33); 
                     

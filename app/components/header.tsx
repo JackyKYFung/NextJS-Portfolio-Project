@@ -12,7 +12,7 @@ export function Header() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // PAGE INDICATOR ON MOBILE
+    // Current Page Display on Mobile
     const getCurrentPageIndicator = () => {
         switch (pathname) {
             case "/about":
@@ -36,7 +36,8 @@ export function Header() {
         }
     };
 
-    // 2. UPDATED MAPPING: Buttons now dispatch the custom global framework event handler directly
+    // Grouping text-left, text-right, icons, element types (link/buttons) 
+    // and action types into one array for organization
     const navItems = [
         { href: '/about', labelLeft: 'AB', labelRight: 'UT', icon: FingerprintPattern, type: 'link' },
         { href: '/projects', labelLeft: 'PR', labelRight: 'JECTS', icon: Atom, type: 'link' },
@@ -49,17 +50,17 @@ export function Header() {
             {/* CORE GRID DESKTOP + MOBILE NAVIGATION BAR CONTAINER */}
             <div className="flex justify-between items-center w-full h-12">
                 
-                {/* LEFT BRAND IDENTIFIER LOGO */}
+                {/* Desktop Logo */}
                 <div className="font-bold text-2xl z-50 font-mono tracking-tight">
                     <Link href={'/'} onClick={() => setIsMobileMenuOpen(false)}>jfunki</Link>
                 </div>
 
-                {/* MIDDLE CONTAINER: MOBILE LIVE ROUTE PORTAL STATUS INDICATOR */}
+                {/* Page indicator on Mobile Layout */}
                 <div className="md:hidden absolute left-1/2 transform -translate-x-1/2 pointer-events-none z-50">
                     {!isMobileMenuOpen && getCurrentPageIndicator()}
                 </div>
 
-                {/* RIGHT SIDE DESKTOP STANDARD NAV ELEMENT LAYER */}
+                {/* Standard Desktop Navbar */}
                 <nav className="hidden md:block">
                     <ul className="flex gap-7 items-center">
                         {navItems.map((item, index) => {
@@ -104,7 +105,7 @@ export function Header() {
                     </ul>
                 </nav>
 
-                {/* RIGHT SIDE MOBILE TRIGGER: INTERACTIVE BURGER MENU CONTROLLER */}
+                {/* Burger menu icon on mobile */}
                 <div className="md:hidden z-50">
                     <button 
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -114,13 +115,13 @@ export function Header() {
                         {isMobileMenuOpen ? (
                             <X className="w-7 h-7 stroke-[2]" />
                         ) : (
-                            <X className="w-7 h-7 stroke-[2] rotate-45" /> // Replaced broken Lucide Hamburger icon reference with an rotated X
+                            <Hamburger className="w-7 h-7 stroke-[2]" /> 
                         )}
                     </button>
                 </div>
             </div>
 
-            {/* FULLSCREEN BLURRED OVERLAY INTERFACE ARCHITECTURE FOR MOBILE VIEWPORTS */}
+            {/* Blurred backdrop overlay when slider is open*/}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div 

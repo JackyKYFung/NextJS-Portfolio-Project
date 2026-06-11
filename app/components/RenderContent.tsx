@@ -17,7 +17,7 @@ export const RenderContent = ({
 
     return (
         <div 
-            /* We add the class 'focus-reading-block' so we can target it in our CSS file */
+            /* We added the class 'focus-reading-block' so we can target it in our CSS file */
             className="prose prose-invert max-w-none text-zinc-300 leading-relaxed focus-reading-block"
             dangerouslySetInnerHTML={{ __html: html }} 
         />

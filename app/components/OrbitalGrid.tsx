@@ -43,7 +43,7 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
     ? upcomingProjects.split("|").map(t => t.trim()).filter(Boolean)
     : [];
 
-  // 2. Group the flat tokens into sets of 4 (id, name, icon, theme)
+  // 2. Group the flat tokens into sets of 4 to match format on ACF (id, name, icon, theme)
   const UPCOMING_PROJECTS = [];
   const chunkSize = 4;
   
@@ -87,15 +87,14 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
     <div className="w-full flex flex-col p-6 rounded-3xl bg-zinc-950/10 border-[2px] border-white backdrop-blur-sm select-none overflow-hidden">
       <div className="relative w-full h-[280px] lg:h-[300px] flex items-center justify-center group/sandbox">
 
-        {/* 1. MOVED BACKDROP CLICK LAYER TO THE TOP (Acts as the base layer) */}
         <div className="absolute inset-0 z-10 pointer-events-auto" onClick={() => setActiveProject(null)} />
 
-        {/* THE SINGLE GEOMETRIC TRACK RINGS */}
+        {/* Single Track Rings */}
         <div className="absolute inset-0 flex items-center justify-center p-4 opacity-10 group-hover/sandbox:opacity-100 transition-opacity duration-700 pointer-events-none w-[250px] h-[250px] mx-auto my-auto md:w-auto md:aspect-square z-20">
           <div className="absolute inset-0 rounded-full" style={{ border: "2px solid rgba(255, 255, 255, 0.7)" }} />
         </div>
 
-        {/* THE DYNAMIC CENTRAL DASHBOARD HUD */}
+        {/* Center HUD display */}
         <div className="relative z-40 flex items-center justify-center pointer-events-auto">
           <div className="absolute w-40 aspect-square rounded-full bg-zinc-950 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white" />
           <div className="relative w-40 aspect-square rounded-full flex items-center justify-center p-4 md:p-6 text-center overflow-hidden">
@@ -117,7 +116,7 @@ export default function OrbitalGrid({ upcomingProjects }: OrbitalGridProps) {
           </div>
         </div>
 
-        {/* ROTATION CONSTELLATION LAYER - BUMPED TO Z-40 */}
+        {/* Orbiting Icons */}
         <motion.div
           className="absolute w-[250px] h-[250px] md:w-auto md:aspect-square pointer-events-none z-40"
           animate={{ rotate: 360 }}

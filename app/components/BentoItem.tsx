@@ -13,7 +13,7 @@ export default function BentoItem({ children, className, onClick }: BentoItemPro
   return (
     <motion.div
       className={className}
-      onClick={onClick} // Pass it here!
+      onClick={onClick} 
       initial={{ opacity: 0, y: 20 }}
       animate={{ 
         opacity: 1, 
@@ -25,7 +25,7 @@ export default function BentoItem({ children, className, onClick }: BentoItemPro
           duration: 5,
           repeat: Infinity,
           ease: "easeInOut",
-          delay: Math.random() * 2 // Keeps your grid feeling organic
+          delay: Math.random() * 2 // Randomize to feel organic
         }
       }}
       whileHover={{ 

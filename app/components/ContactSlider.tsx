@@ -6,6 +6,15 @@ import { X, Mail, SendHorizonal, Donut, CheckCircle2 } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { sendContactEmail } from "@/actions";
 
+const colorPalettes = [
+"from-red-500 to-orange-500",
+  "from-orange-500 to-yellow-500",
+  "from-green-400 to-cyan-500",
+  "from-blue-500 to-purple-500",
+  "from-pink-500 to-rose-500",
+  "from-indigo-500 to-blue-400",    
+];
+
 interface ContactSliderProps {
   isOpen: boolean;
   onClose: () => void;
@@ -22,6 +31,7 @@ interface ContactInputs {
   honeypot: string;
 }
 
+// Manually export Linkedin icon as a function because Lucid does not have LinkedIn icon
 export function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg
@@ -75,7 +85,6 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
 
   // form validation success
   const onSubmit: SubmitHandler<ContactInputs> = async (data) => {
-    console.log("Form submission successful!");
     
     try {
           // Dispatch the payload straight into your server action container
@@ -83,8 +92,8 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
           
           if (result.success) {
             console.log("Full-stack transactional communication dispatched seamlessly!");
-            setIsSuccessfullySent(true); // Switch to success state screen
-            reset(); // Wipe inputs behind the scenes
+            setIsSuccessfullySent(true);
+            reset();
           } else {
             // Fallback catch if fields drop or Resend fails
             alert(result.error || "The mail gateway timed out. Please try again.");
@@ -99,7 +108,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
 <AnimatePresence>
       {isOpen && (
         <>
-          {/* BACKDROP */}
+          {/* Backdrop Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -108,7 +117,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
             className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm pointer-events-auto"
           />
 
-          {/* DRAWER CONTAINER */}
+          {/* Drawer Container */}
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -120,42 +129,47 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
             className="fixed right-0 top-0 z-50 h-full w-full md:max-w-md bg-zinc-950 border-l border-zinc-800 text-white p-6 md:p-8 flex flex-col pointer-events-auto shadow-2xl"
           >
             
-            {/* TOP ESCAPE HATCH */}
+            {/* Slider Top Section */}
             <div className="flex items-center justify-between pb-6 border-b border-zinc-800 mb-6">
-              <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
-                <div className="flex inline-flex items-center text-sm font-bold font-mono">
-                  <span className="relative pb-1 mr-[1px]">C</span>
-                  
-                  <div className="inline-flex items-center justify-center w-[1em] h-[1em] mt-[-4px] ml-[-2px]">
-                    <motion.div
-                      className="flex items-center justify-center w-full h-full pointer-events-none"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Donut className="w-full h-full stroke-[2.5] text-current" />
-                    </motion.div>
+              <div>
+                <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
+                  <div className="flex inline-flex items-center text-sm font-bold font-mono">
+
+
+                    <span className="relative pb-1 mr-[1px]">C</span>
+                    
+                    <div className="inline-flex items-center justify-center w-[1em] h-[1em] mt-[-4px] ml-[-2px]">
+                      <motion.div
+                        className="flex items-center justify-center w-full h-full pointer-events-none"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Donut className="w-full h-full stroke-[2.5] text-current" />
+                      </motion.div>
+                    </div>
+                    
+                    <span className="relative pb-1 ml-[2px]">nnect with Me</span>
                   </div>
-                  
-                  <span className="relative pb-1 ml-[2px]">nnect with Me</span>
-                </div>
-              </h2>
+                </h2>
+
+              </div>
               
               <button
                 onClick={onClose}
-                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-emerald-400 outline-none -mr-1"
+                className="transition-all duration-300 hover:scale-110 cursor-pointer text-zinc-500 hover:text-white outline-none -mr-1"
                 aria-label="Close panel"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
 
-            {/* SCROLLABLE INNER PANEL AREA */}
+            {/* Scrollable Slider Body section */}
             <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin flex flex-col justify-between">
               
               <AnimatePresence mode="wait">
                 {!isSuccessfullySent ? (
                   
-                  // STATE A: THE ACTIVE ENTRY FORM BLOCK
+                  //Form Section
                   <motion.div
                     key="contact-form"
                     initial={{ opacity: 0, y: 10 }}
@@ -164,7 +178,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
                     transition={{ duration: 0.2 }}
                     className="space-y-8"
                   >
-                    <div>
+                    <div className="mb-1">
                       <h3 className="text-2xl font-bold font-mono tracking-tight mb-2">
                         Behind the code.
                       </h3>
@@ -176,7 +190,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-4">       
+                    <div className="flex items-center gap-4 mt-4 mb-5">       
                     <a
                       href={contactData.linkedin_url}
                       target="_blank"
@@ -196,7 +210,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
                     </a>
                     </div>
 
-                    <div className="relative flex py-2 items-center">
+                    <div className="relative flex py-2 mb-5 items-center">
                       <div className="flex-grow border-t border-zinc-800"></div>
                       <span className="flex-shrink mx-4 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
                         Or leave a message
@@ -262,7 +276,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
                   </motion.div>
                 ) : (
                   
-                  // STATE B: THE SUCCESS CONFIRMATION PANEL
+                  // Success submission confirmation panel
                   <motion.div
                     key="success-screen"
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -298,7 +312,7 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
 
             </div>
 
-            {/* SAFE MOBILE BOTTOM SPACING */}
+            {/* Safe mobile bottom spacing */}
             <div className="h-6 md:h-0 w-full bg-transparent" />
           </motion.div>
         </>

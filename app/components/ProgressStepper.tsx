@@ -29,7 +29,7 @@ export default function ProgressStepper({
             onClick={() => onSelect(step.id)}
             className="relative flex items-center group outline-none"
           >
-            {/* THE MOVING INDICATOR */}
+            {/* The moving indicator */}
             <div className="w-5 pr-1 flex justify-center items-center">
               {isActive && (
                 <motion.div
@@ -37,13 +37,13 @@ export default function ProgressStepper({
                   transition={{ type: "spring", stiffness: 350, damping: 35 }}
                   className="relative flex items-center justify-center"
                 >
-                  {/* The Icon - Pure White with a tiny bit of drop shadow for sharpness */}
+                  {/* The indicator icon */}
                   <ChevronRight 
                     size={18} 
                     className="text-white z-20 drop-shadow-[0_0_3px_rgba(255,255,255,0.8)]" 
                   />
                   
-                  {/* Layer 1: Tight Glow (Makes the icon look like it's burning bright) */}
+                  {/* Layer 1: Tight Glow */}
                   <div className="absolute inset-0 bg-white/40 blur-[4px] rounded-full scale-115 z-10" />
                   
                   {/* Layer 2: Soft Radiant Bloom */}
@@ -59,7 +59,7 @@ export default function ProgressStepper({
               )}
             </div>
 
-            {/* THE LABEL */}
+            {/* The label */}
             <span 
               className={`font-mono text-sm py-2 tracking-[0.2em] uppercase font-bold transition-all duration-500 ${
                 isActive 

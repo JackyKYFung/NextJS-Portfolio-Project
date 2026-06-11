@@ -39,7 +39,7 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
         <div className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-center">
                 
-                {/* LEFT COLUMN: Image Div */}
+                {/* Left side: Image div */}
                 <div className="lg:order-1 lg:col-span-3 relative w-full min-h-[350px] h-[350px] lg:min-h-[475px] lg:h-[475px] md:h-[400px] md:min-h-[400px] rounded-2xl overflow-hidden bg-black shadow-lg border">
                     <Image 
                         key={activePost.id} 
@@ -52,10 +52,10 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
                     />
                 </div>
 
-                {/* RIGHT COLUMN: Controls & Instruction */}
+                {/* Right side: Controls & Instruction */}
                 <div className="lg:order-2 lg:col-span-3 flex flex-col gap-8 justify-center">
                     
-                    {/* CAPTION SECTION */}
+                    {/* Caption Section */}
                     <div className="order-1 lg:order-2 h-[80px] lg:h-[120px] flex flex-col justify-start lg:text-left text-center overflow-y-auto no-scrollbar">
                         {activePost?.caption && (
                             <p className="text-md font-medium text-gray-200 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -67,7 +67,7 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
                         </p>
                     </div>
 
-                    {/* ICON NAVIGATION ROW */}
+                    {/* Icon nav row */}
                     <div className="order-2 lg:order-1 flex flex-row flex-wrap lg:justify-start justify-center gap-4 pb-2 no-scrollbar">
                         {shuffledUpdates.map((post) => {
                             const isActive = activePost?.id === post.id;
@@ -88,7 +88,7 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
                         })}
                     </div>
 
-                    {/* HOVER INSTRUCTION */}
+                    {/* Hover instructions */}
                     <div className="order-3 lg:order-none text-sm italic text-center lg:text-left">
                         (Hover over the icons!)
                     </div>

@@ -11,7 +11,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
     }
 
     return (
-        /* 💡 Added 'group' class to the section parent. 
+        /* The 'group' class to the section parent. 
            This acts as the trigger boundary when the cursor enters or exits the section. */
         <section className="group text-left mt-5 animate-fade-in border-2 border-transparent rounded-3xl">
             {Array.isArray(experiences) && experiences.map((experience: any) => {
@@ -19,7 +19,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
                 // Get job details string from ACF 
                 const detailsString = experience.acf?.job_details || "";
                 
-                //Turn retrieved job details string into an array
+                // Turn retrieved job details string into an array because using | to split different bullet points
                 const detailsArray = detailsString.split('|')
                     .filter((item: string) => item.trim() !== "") // clean up empty items
                     .map((item: string) => item.trim());
@@ -27,10 +27,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
                 const isOpen = activeId === experience.id;
 
                 return (
-                    /* 💡 Updated Accordion Tab Styles:
-                       - Default: px-0 (no indentation, flush with page alignment).
-                       - Section Hovered: group-hover:px-5 (seamlessly pushes inward).
-                       - Active Open State: Keep px-5 applied permanently so the active container stays structured. */
+                    /* The px-5 class applies permanently when the accordion is opened */
                     <div 
                         key={experience.id} 
                         className={`experience-tab overflow-hidden transition-all duration-350 ease-out rounded-xl hover:bg-zinc-500/20 border-2             
@@ -55,7 +52,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
 
                                 <div className="company text-sm italic opacity-80 mt-1 text-left">
                                     {experience.acf?.company}
-                                ]</div>
+                                </div>
                             </div>
                         </div>
                         
@@ -64,11 +61,7 @@ export function Experience({ experiences }: { experiences: any[] }) {
                             className={`grid transition-all duration-300 ease-in-out ${ isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0" } `}
                         >
                             <div className="overflow-hidden">        
-                                <ul className="pb-5 space-y-2 pt-0"
-                                    style={{
-                                        listStyle: "disc",
-                                        paddingLeft: "20px" // Slightly reduced for cleaner inner block indentation
-                                    }}>
+                                <ul className="list-disc pl-5 pt-0 pb-5 space-y-2">
                                 
                                     {detailsArray.map((detail: string, index: number ) => (
                                         <li key={`${experience.id}-${index}`}>

@@ -19,10 +19,9 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
     return (
         <div className="flex flex-col gap-16">
             
-            {/* FIRST ROW: 12-Column Grid Layout Split (8 Left / 4 Right) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 
-                {/* LEFT SIDE: Biography + Experience stacked (8 Columns) */}
+                {/* left side: Biography + Experience */}
                 <div className="lg:col-span-6 space-y-12">
                     
                     {/* Biography Section */}
@@ -47,7 +46,7 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
                         )}
                     </div>
 
-                    {/* EXPERIENCE SECTION */}    
+                    {/* Experience Section */}    
                     <div className="mt-10">
                         <h1 
                             className="relative transition-all duration-200 flex items-center group pb-1 text-3xl font-bold font-mono"
@@ -61,7 +60,7 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
 
                 </div>
 
-                {/* RIGHT SIDE: Skills + The Playful Interactive Sandbox Anchor (4 Columns) */}
+                {/* Right Side: Skills + Upcoming Projects */}
                 <div className="lg:col-span-6 pt-5">
                     
                     {/* Skills Section */}
@@ -69,7 +68,6 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
                         <Skills acfData={acf || {}} />
                     </div>
 
-                    {/* We wrap it in a div that handles the sticky behavior */}
                     <div className="lg:sticky lg:top-24">
                         <OrbitalGrid upcomingProjects={upcomingProjects} />
                     </div>
@@ -78,7 +76,7 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
 
             </div>
 
-            {/* SECOND ROW: Photo Gallery (Full Width - 12 Columns Anchor) */}
+            {/* Photo Gallery Section */}
             <div className="w-full border-t border-zinc-800/60 pt-12 pb-12">
                 <div className="flex inline-flex items-center text-3xl font-bold font-mono mb-6">
     

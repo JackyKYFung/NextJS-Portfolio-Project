@@ -24,7 +24,7 @@ export default function Lightbox({ isOpen, onClose, src, alt }: { isOpen: boolea
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          // 'fixed inset-0' + 'z-[9999]' now covers the WHOLE screen
+          // 'fixed inset-0' + 'z-[9999]' to cover entire screen
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#111]/40 backdrop-blur-[5px] cursor-zoom-out"
         >
           <motion.img

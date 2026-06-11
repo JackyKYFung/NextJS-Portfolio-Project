@@ -63,38 +63,41 @@ export default function ProjectGallery({ project }: { project: any }) {
                 
                 <div className="grid grid-cols-2 gap-4 content-start">
                     
-                    {/* Tech stack box */}
-                    <BentoItem className={`bg-zinc-900 rounded-3xl p-4 text-white flex flex-col justify-center transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 ${
-                        hasSnippet ? "col-span-1" : "col-span-2 h-[152px]" 
-                    }`}>
-                        <h4 className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Tech Stack</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {techStack.map((tag: any, index: number) => (
-                                <motion.span 
-                                    key={tag.id}
-                                    animate={{
-                                        y: [0, -2, 0],
-                                        x: [0, 20, 0],
-                                    }}
-                                    transition={{
-                                        duration: 30 + (index % 4),
-                                        repeat: Infinity,
-                                        repeatType: "mirror",
-                                        ease: "easeInOut",
-                                        delay: index * 0.2,
-                                    }}
-                                    className={`text-[11px] font-bold uppercase px-3 py-1 rounded-full text-black/90 shadow-sm ${getTagTheme(tag.name)}`}
-                                >
-                                    {tag.name}
-                                </motion.span>
-                            ))}
-                        </div>
-                    </BentoItem>
+                {/* Tech Stack box */}
+                <BentoItem className={`group bg-zinc-900 rounded-3xl p-4 text-white flex flex-col justify-center transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 ${
+                    hasSnippet ? "col-span-1" : "col-span-2 h-[175px]" 
+                }`}>
+                    {/* Added transition-colors duration-300 and group-hover:text-white */}
+                    <h4 className="text-xs uppercase tracking-widest text-zinc-500 mb-4 transition-colors duration-300 group-hover:text-white">
+                        Tech Stack
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                        {techStack.map((tag: any, index: number) => (
+                            <motion.span 
+                                key={tag.id}
+                                animate={{
+                                    y: [0, -2, 0],
+                                    x: [0, 20, 0],
+                                }}
+                                transition={{
+                                    duration: 30 + (index % 4),
+                                    repeat: Infinity,
+                                    repeatType: "mirror",
+                                    ease: "easeInOut",
+                                    delay: index * 0.2,
+                                }}
+                                className={`text-[11px] font-bold uppercase px-3 py-1 rounded-full text-black/90 shadow-sm ${getTagTheme(tag.name)}`}
+                            >
+                                {tag.name}
+                            </motion.span>
+                        ))}
+                    </div>
+                </BentoItem>
 
                     {/* Lightbox Trigger */}
                     <BentoItem 
                         className={`group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800 transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 ${
-                            hasSnippet ? "col-span-1" : "col-span-2 h-[152px]"
+                            hasSnippet ? "col-span-1" : "col-span-2 h-[175px]"
                         }`}
                         onClick={() => setIsLightboxOpen(true)}
                     >

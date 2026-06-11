@@ -115,7 +115,7 @@ export function Header() {
                         {isMobileMenuOpen ? (
                             <X className="w-7 h-7 stroke-[2]" />
                         ) : (
-                            <Hamburger className="w-7 h-7 stroke-[2]" /> 
+                            <Hamburger className="w-7 h-7 stroke-[2] hover:scale-115 transition-all" /> 
                         )}
                     </button>
                 </div>

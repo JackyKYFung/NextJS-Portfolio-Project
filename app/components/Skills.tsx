@@ -10,6 +10,7 @@ interface ACFSkillsData {
     performance?: string;
     hosting?: string;
     design?: string;
+    backend?: string;
     [key: string]: string | undefined;
 }
 
@@ -35,6 +36,7 @@ export function Skills({ acfData }: SkillsProps) {
             { field: "performance", cat: "performance" },
             { field: "hosting", cat: "hosting" },
             { field: "design", cat: "design" },
+            { field: "backend", cat: "backend" },
         ];
 
         let allSkills: Array<{ name: string; category: string }> = [];
@@ -79,7 +81,7 @@ return (
                     <p className="text-center text-xs opacity-80 italic">(The skills sort randomly on load!)</p>
                 </div>
                 <nav className="skill-categories flex flex-col items-end border-r border-black/10 ">
-                    {["wordpress", "payments", "frontend", "performance", "hosting", "design"].map((cat) => (
+                    {["wordpress", "payments", "frontend", "performance", "hosting", "design", "backend"].map((cat) => (
                         <button 
                             key={cat}
                             className="skill-category font-bold w-fit capitalize text-sm mb-2 opacity-80 hover:opacity-100 transition-opacity" 

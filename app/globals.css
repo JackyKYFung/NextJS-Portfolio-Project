@@ -160,7 +160,8 @@ body {
 .skills-wrapper:has(.skill-category[data-cat="frontend"]:hover) .skills span[data-cat="frontend"],
 .skills-wrapper:has(.skill-category[data-cat="performance"]:hover) .skills span[data-cat="performance"],
 .skills-wrapper:has(.skill-category[data-cat="hosting"]:hover) .skills span[data-cat="hosting"],
-.skills-wrapper:has(.skill-category[data-cat="design"]:hover) .skills span[data-cat="design"] 
+.skills-wrapper:has(.skill-category[data-cat="design"]:hover) .skills span[data-cat="design"],
+.skills-wrapper:has(.skill-category[data-cat="backend"]:hover) .skills span[data-cat="backend"] 
 {
   opacity: 1;
   color: #fff !important;

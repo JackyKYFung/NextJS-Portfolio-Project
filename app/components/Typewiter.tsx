@@ -56,21 +56,29 @@ const handleType = () => {
     }, [isDeleting, loopNum, text]);
 
     return (
-        <p className="text-center">
-            A WordPress specialist 
-            <span 
-                className="inline-block ml-1 bg-clip-text text-transparent font-mono font-bold transition-all duration-3000 ease-in-out"
-                style={{
-                    // We create one long horizontal rainbow
-                    backgroundImage: 'linear-gradient(to right, #ef4444, #f97316, #eab308, #22c55e, #06b6d4, #3b82f6, #a855f7, #ef4444)',
-                    backgroundSize: '400% 100%',
-                    backgroundPosition: `${bgPos}% 0%`,
-                }}
-            >
-                {text}
-            </span>
-            <span className="animate-pulse border-r-2 border-white/50 mr-1"></span> 
-            Full-Stack Developer  
-        </p>
+<p className="text-center text-md md:text-base leading-relaxed">
+    {/* Line 1 */}
+    <span className="block sm:inline-block">A WordPress specialist</span> 
+    
+    {/* Line 2 */}
+    <span className="block sm:inline-block sm:ml-1 py-2 sm:py-0">
+        <span 
+
+            className="inline-block bg-clip-text text-4xl sm:text-base text-transparent font-mono font-bold transition-all duration-3000 ease-in-out"
+            style={{
+                backgroundImage: 'linear-gradient(to right, #ef4444, #f97316, #eab308, #22c55e, #06b6d4, #3b82f6, #a855f7, #ef4444)',
+                backgroundSize: '400% 100%',
+                backgroundPosition: `${bgPos}% 0%`,
+            }}
+        >
+            {text}
+        </span>
+        {/* We adjusted the height of the flashing cursor box using h-[1.2em] so it matches the larger mobile letters smoothly */}
+        <span className="animate-pulse inline-block h-[1.2em] align-middle border-r-2 border-white/50 mr-1 sm:mr-0"></span> 
+    </span>   
+    
+    {/* Line 3 */}
+    <span className="block sm:inline-block sm:ml-1">Full-Stack Developer</span>  
+</p>
     );
 }

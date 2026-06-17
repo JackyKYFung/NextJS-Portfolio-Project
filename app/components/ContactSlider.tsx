@@ -132,8 +132,8 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
             {/* Slider Top Section */}
             <div className="flex items-center justify-between pb-6 border-b border-zinc-800 mb-6">
               <div>
-                <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-emerald-400 font-bold">
-                  <div className="flex inline-flex items-center text-sm font-bold font-mono">
+                <h2 className="font-mono text-md tracking-[0.2em] text-white font-bold">
+                  <div className="flex inline-flex items-center font-bold font-mono">
 
 
                     <span className="relative pb-1 mr-[1px]">C</span>
@@ -144,11 +144,11 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
                         animate={{ rotate: 360 }}
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                       >
-                        <Donut className="w-full h-full stroke-[2.5] text-current" />
+                        <Donut className="w-full h-full stroke-[2.5] text-current text-emerald-400" />
                       </motion.div>
                     </div>
                     
-                    <span className="relative pb-1 ml-[2px]">nnect with Me</span>
+                    <span className="relative pb-1 ml-[2px]">nnect With Me</span>
                   </div>
                 </h2>
 

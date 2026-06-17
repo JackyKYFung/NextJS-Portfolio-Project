@@ -17,7 +17,7 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
     const acf = pageData?.acf;
 
     return (
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-16 py-10">
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 
@@ -25,7 +25,7 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
                 <div className="lg:col-span-6 space-y-12">
                     
                     {/* Biography Section */}
-                    <div className="bio-content max-w-none pt-5 mb-5">
+                    <div className="bio-content max-w-none mb-5">
                         {pageData?.content?.rendered && (
                             <>
                                 <div className="flex inline-flex items-center text-3xl font-bold font-mono">

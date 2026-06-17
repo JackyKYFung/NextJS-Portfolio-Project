@@ -18,7 +18,7 @@ export default async function ProjectDetailPage({
     const { acf, title } = project;
 
     return (
-        <main className="max-w-6xl mx-auto py-10 animate-fade-in">
+        <main className="max-w-6xl mx-auto py-10 pt-0 sm:pt-10 animate-fade-in">
             {/* Gallery at the top */}
             <ProjectGallery project={project} />
 

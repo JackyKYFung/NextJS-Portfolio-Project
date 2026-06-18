@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'wp.jfunki.com', // Whitelists your new Hostinger subdomain
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

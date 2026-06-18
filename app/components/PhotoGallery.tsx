@@ -40,7 +40,7 @@ export default function PhotoGallery({ wpData = [] }: { wpData: any[]}) {
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-center">
                 
                 {/* Left side: Image div */}
-                <div className="lg:order-1 lg:col-span-3 relative w-full min-h-[350px] h-[350px] lg:min-h-[475px] lg:h-[475px] md:h-[400px] md:min-h-[400px] rounded-2xl overflow-hidden bg-black shadow-lg border">
+                <div className="lg:order-1 lg:col-span-3 relative w-full min-h-[350px] h-[350px] lg:min-h-[475px] lg:h-[475px] md:h-[400px] md:min-h-[400px] rounded-2xl overflow-hidden bg-black shadow-lg border-[2px]">
                     <Image 
                         key={activePost.id} 
                         src={activePost.src} 

@@ -42,7 +42,7 @@ export function Header() {
         { href: '/about', labelLeft: 'AB', labelRight: 'UT', icon: FingerprintPattern, type: 'link' },
         { href: '/projects', labelLeft: 'PR', labelRight: 'JECTS', icon: Atom, type: 'link' },
         { id: 'contact', labelLeft: 'C', labelRight: 'NTACT', icon: HeartHandshake, type: 'button', action: triggerContactSlider },
-        { href: 'https://jfunki.com/wp-content/uploads/2026/06/Jacky-Fung-Resume-Web-Developer.pdf', labelLeft: 'MY RESU', labelRight: 'É', icon: Ghost, type: 'link', isExternal: true }
+        { href: '/resume.pdf', labelLeft: 'MY RESU', labelRight: 'É', icon: Ghost, type: 'link', isExternal: true }
     ];
 
     return (

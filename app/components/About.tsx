@@ -28,15 +28,13 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
                     <div className="bio-content max-w-none mb-5">
                         {pageData?.content?.rendered && (
                             <>
-                                <div className="flex inline-flex items-center text-3xl font-bold font-mono">
-
-                                <span className="relative pb-1">Life in the C</span>
-                                
-        
-                                <Package className="w-[0.7em] h-[0.7em] stroke-[2.5] text-current mx-[2px] mb-[-3] translate-y-[-1px]" />
-                                
-    
-                                <span className="relative pb-1">de</span>
+                                <div className="flex flex-wrap items-baseline text-2xl sm:text-3xl font-bold font-mono mb-6 gap-x-4">
+                                    <span>Life in the</span>
+                                    <span className="whitespace-nowrap flex items-baseline">
+                                        C
+                                        <Package className="w-[0.7em] h-[0.7em] stroke-[2.5] self-center mx-[2px] translate-y-[2px]" />
+                                        de
+                                    </span>
                                 </div>
                                 <div
                                     className="mt-5 text-white" 
@@ -48,13 +46,13 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
 
                     {/* Experience Section */}    
                     <div className="mt-10">
-                        <h1 
-                            className="relative transition-all duration-200 flex items-center group pb-1 text-3xl font-bold font-mono"
-                        >
-                                <Blocks className="w-[1em] h-[1em] stroke-[2.5] text-current translate-y-[1px] px-[1px] mb-[3px]" />
-                                <span>xperience</span>
-                                
-                        </h1>
+                        <div className="flex flex-wrap items-baseline text-2xl sm:text-3xl font-bold font-mono mb-6 gap-x-4">
+                            
+                            <span className="whitespace-nowrap flex items-baseline">
+                            <Blocks className="w-[1em] h-[1em] stroke-[2.5] self-center mx-[2px] translate-y-[-2px]" />
+                                xperience
+                            </span>
+                        </div>
                         <Experience experiences={experiences} />
                     </div>
 
@@ -78,15 +76,14 @@ export function About({ pageData, updates, experiences, upcomingProjects }: Abou
 
             {/* Photo Gallery Section */}
             <div className="w-full border-t border-zinc-800/60 pt-12 pb-12">
-                <div className="flex inline-flex items-center text-3xl font-bold font-mono mb-6">
-    
-                    <span className="relative pb-1">Life b</span>
-                    
-            
-                    <Compass className="w-[0.7em] h-[0.7em] stroke-[2.5] text-current mx-[2px] mb-[-3] translate-y-[-1px]" />
-                    
-        
-                    <span className="relative pb-1">yond the Code</span>
+                <div className="flex flex-wrap items-baseline text-2xl sm:text-3xl font-bold font-mono mb-6 gap-x-4">
+                    <span>Life</span>
+                    <span className="whitespace-nowrap flex items-baseline">
+                        b
+                        <Compass className="w-[0.7em] h-[0.7em] stroke-[2.5] self-center mx-[2px] translate-y-[1px]" />
+                        yond
+                    </span>
+                    <span className="whitespace-nowrap">the Code</span>
                 </div>
                 <PhotoGallery wpData={updates}/>
             </div>

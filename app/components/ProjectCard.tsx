@@ -34,7 +34,7 @@ export function ProjectCard({ project }: { project: any }) {
     return (
         <Link 
         href={`/projects/${project.slug}`} 
-        className="block w-full max-w-[80%] sm:max-w-full md:max-w-full mx-auto h-full group"
+        className="block w-full max-w-[90%] sm:max-w-full md:max-w-full mx-auto h-full group"
     >
             
             {/* DESKTOP HOVER LAYOUT (Kept clean for md screens and up) */}

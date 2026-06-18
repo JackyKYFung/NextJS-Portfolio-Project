@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, SendHorizonal, Donut, CheckCircle2 } from "lucide-react";
+import { X, Mail, SendHorizonal, Donut, Smile, MessageCircleCheck } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { sendContactEmail } from "@/actions";
 
@@ -289,20 +289,33 @@ export default function ContactSlider({ isOpen, onClose, contactData }: ContactS
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
                     >
-                      <CheckCircle2 className="h-16 w-16 text-emerald-400 stroke-[1.5]" />
+                      <Smile className="h-16 w-16 text-emerald-400 stroke-[1.5]" />
                     </motion.div>
                     
-                    <h3 className="text-2xl font-bold font-mono tracking-tight mt-4">
-                      Message Dispatched!
-                    </h3>
+                    <div className="flex flex-wrap items-baseline justify-center text-center text-2xl sm:text-3xl font-bold font-mono mb-6 gap-x-4">
+                        {/* Line 1: Forces this phrase to break after 'for' if space is tight */}
+                        <span>Thank you for</span>
+                        
+                        {/* Line 2: Combines 'the' and 'Message' into a single unbreakable wrapping group */}
+                        <span className="flex flex-wrap items-baseline justify-center gap-x-4">
+                            <span>the</span>
+                            <span className="whitespace-nowrap flex items-baseline">
+                                Mess
+                                <MessageCircleCheck className="w-[0.7em] h-[0.7em] stroke-[2.5] self-center mx-[2px] translate-y-[2px]" />
+                                ge
+                            </span>
+                        </span>
+                    </div>
                     
                     <p className="text-zinc-400 text-sm max-w-xs leading-relaxed font-sans">
-                      Your form data successfully cleared the network pipeline. I'll review your details and follow up shortly.
+                      I will check your message and 
+                      <br/>
+                      get back to you shortly!
                     </p>
 
                     <button
                       onClick={onClose}
-                      className="mt-8 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-lg transition-all cursor-pointer outline-none focus:border-zinc-500"
+                      className="mt-8 border-[3px] border-zinc-800 text-zinc-400 hover:text-white hover:border-emerald-400 font-mono text-sm font-bold uppercase tracking-widest px-6 py-3 rounded-lg transition-all cursor-pointer outline-none focus:border-emerald-400"
                     >
                       Close Portal
                     </button>

@@ -13,6 +13,28 @@ interface AboutProps {
     upcomingProjects: string;
 }
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Me | Jacky Fung",
+  description: "6+ years of experience specializing in custom WordPress optimization and modern full-stack web applications.",
+  openGraph: {
+    title: "About Me | Jacky Fung",
+    description: "Full-Stack Developer portfolio featuring headless WordPress & Nextjs projects.",
+    url: "https://jfunki.com/about",
+    siteName: "Jacky Fung's Portfolio",
+    images: [
+      {
+        url: "https://jfunki.com/og-image.png", // Create a cool preview image and put it in your public folder!
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "profile",
+  },
+};
+
 export function About({ pageData, updates, experiences, upcomingProjects }: AboutProps) {
     const acf = pageData?.acf;
 

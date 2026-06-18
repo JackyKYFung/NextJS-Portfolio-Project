@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Atom, FingerprintPattern, Ghost, HeartHandshake, Hamburger, X } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { triggerContactSlider } from "@/app/components/RootClientWrapper";
-import { isExternal } from 'util/types';
 
 export function Header() {
     const pathname = usePathname();
@@ -36,8 +35,6 @@ export function Header() {
         }
     };
 
-    // Grouping text-left, text-right, icons, element types (link/buttons) 
-    // and action types into one array for organization
     const navItems = [
         { href: '/about', labelLeft: 'AB', labelRight: 'UT', icon: FingerprintPattern, type: 'link' },
         { href: '/projects', labelLeft: 'PR', labelRight: 'JECTS', icon: Atom, type: 'link' },
@@ -65,25 +62,35 @@ export function Header() {
                     <ul className="flex gap-7 items-center">
                         {navItems.map((item, index) => {
                             const IconComponent = item.icon;
-                            // Cleaned up active conditions to strip internal state tracking
                             const isActive = pathname === item.href;
                             
                             if (item.type === 'link' && item.href) {
+                                const linkProps = {
+                                    href: item.href,
+                                    target: item.isExternal ? "_blank" : undefined,
+                                    rel: item.isExternal ? "noopener noreferrer" : undefined,
+                                    className: `relative transition-all duration-200 flex items-center group p-3 pt-0 text-sm ${isActive ? "text-white font-black" : "opacity-80 hover:opacity-100"}`
+                                };
+
+                                const innerContent = (
+                                    <>
+                                        <span className={`grid transition-all duration-300 ease-out ${isActive ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"}`}>
+                                            <span className="overflow-hidden whitespace-nowrap">{item.labelLeft}</span>
+                                        </span>
+                                        <IconComponent className="w-[1.3em] h-[1.3em] stroke-[2.5] text-current mx-[2px] shrink-0" />
+                                        <span className={`grid transition-all duration-300 ease-out ${isActive ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"}`}>
+                                            <span className="overflow-hidden whitespace-nowrap">{item.labelRight}</span>
+                                        </span>
+                                    </>
+                                );
+
                                 return (
                                     <li key={index}>
-                                        <Link 
-                                            href={item.href} 
-                                            target={item.isExternal ? "_blank" : undefined}
-                                            rel={item.isExternal ? "noopener noreferrer" : undefined}
-                                            className={`relative transition-all duration-200 flex items-center group p-3 pt-0 text-sm ${isActive ? "text-white font-black" : "opacity-80 hover:opacity-100"}`}>
-                                            <span className={`grid transition-all duration-300 ease-out ${isActive ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"}`}>
-                                                <span className="overflow-hidden whitespace-nowrap">{item.labelLeft}</span>
-                                            </span>
-                                            <IconComponent className="w-[1.3em] h-[1.3em] stroke-[2.5] text-current mx-[2px] shrink-0" />
-                                            <span className={`grid transition-all duration-300 ease-out ${isActive ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0 group-hover:grid-cols-[1fr] group-hover:opacity-100"}`}>
-                                                <span className="overflow-hidden whitespace-nowrap">{item.labelRight}</span>
-                                            </span>
-                                        </Link>
+                                        {item.isExternal ? (
+                                            <a {...linkProps}>{innerContent}</a>
+                                        ) : (
+                                            <Link {...linkProps}>{innerContent}</Link>
+                                        )}
                                     </li>
                                 );
                             } else {
@@ -152,19 +159,29 @@ export function Header() {
                                     };
 
                                     if (item.type === 'link' && item.href) {
+                                        const mobileLinkProps = {
+                                            href: item.href,
+                                            onClick: () => setIsMobileMenuOpen(false),
+                                            rel: item.isExternal ? "noopener noreferrer" : undefined,
+                                            target: item.isExternal ? "_blank" : undefined,
+                                            className: `flex items-center justify-center text-2xl font-bold font-mono py-3 border-b border-white/5 w-full ${isItemActive ? "text-white" : "text-zinc-400"}`
+                                        };
+
+                                        const mobileInnerContent = (
+                                            <>
+                                                <span>{item.labelLeft}</span>
+                                                <IconComponent className={`w-[1.1em] h-[1.1em] stroke-[2.5] mx-1 shrink-0 ${isItemActive ? "text-white" : "text-zinc-500"}`} />
+                                                <span>{item.labelRight}</span>
+                                            </>
+                                        );
+
                                         return (
                                             <motion.li key={index} variants={childAnimationVariants} className="w-full text-center">
-                                                <Link 
-                                                    href={item.href}
-                                                    onClick={() => setIsMobileMenuOpen(false)}
-                                                    rel={item.isExternal ? "noopener noreferrer" : undefined}
-                                                    target={item.isExternal ? "_blank" : undefined}
-                                                    className={`flex items-center justify-center text-2xl font-bold font-mono py-3 border-b border-white/5 w-full ${isItemActive ? "text-white" : "text-zinc-400"}`}
-                                                >
-                                                    <span>{item.labelLeft}</span>
-                                                    <IconComponent className={`w-[1.1em] h-[1.1em] stroke-[2.5] mx-1 shrink-0 ${isItemActive ? "text-white" : "text-zinc-500"}`} />
-                                                    <span>{item.labelRight}</span>
-                                                </Link>
+                                                {item.isExternal ? (
+                                                    <a {...mobileLinkProps}>{mobileInnerContent}</a>
+                                                ) : (
+                                                    <Link {...mobileLinkProps}>{mobileInnerContent}</Link>
+                                                )}
                                             </motion.li>
                                         );
                                     } else {

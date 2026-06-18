@@ -1,4 +1,4 @@
-const BASE_URL = "https://jfunki.com/wp-json/wp/v2";
+const BASE_URL = "https://wp.jfunki.com/wp-json/wp/v2";
 
 // 1. Your existing Swiss-Army-Knife function
 export async function getData(endpoint: string, queryParams: string = "") {

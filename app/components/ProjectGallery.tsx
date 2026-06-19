@@ -98,7 +98,7 @@ export default function ProjectGallery({ project }: { project: any }) {
 
                 {/* 3. LIGHTBOX PREVIEW BOX */}
                 <BentoItem 
-                    className="hidden min-[481px]:block group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800 transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 h-auto sm:h-[175px] col-span-1 sm:row-start-2 sm:col-start-2"
+                    className="hidden sm:block group relative cursor-pointer rounded-3xl overflow-hidden bg-zinc-800 transition-all duration-300 border-white/0 border-[2px] hover:border-white/100 h-auto sm:h-[175px] col-span-1 sm:row-start-2 sm:col-start-2"
                     onClick={() => setIsLightboxOpen(true)}
                 >
                     <img src={acf.preview_crop?.url} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Preview" />
